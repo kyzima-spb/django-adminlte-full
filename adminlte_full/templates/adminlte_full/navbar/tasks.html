@@ -1,0 +1,42 @@
+{% load i18n %}
+
+{% if tasks != None %}
+    <li class="dropdown tasks-menu">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-flag-o"></i>
+            <span class="label label-danger">{{ total }}</span>
+        </a>
+        <ul class="dropdown-menu">
+            <li class="header">
+                {% blocktrans %}You have {{ total }} tasks{% endblocktrans %}
+            </li>
+            <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                    {% for task in tasks %}
+                        <li>
+                            <a href="{% if task.uid %}{% url 'adminlte_full_show_task' id=task.uid %}{% else %}#{% endif %}">
+                                <h3>
+                                    {{ task.title }}
+                                    <small class="pull-right">{{ task.progress }}%</small>
+                                </h3>
+                                <div class="progress xs">
+                                    <div class="progress-bar progress-bar-{{ task.color }}"
+                                         style="width: {{ task.progress }}%"
+                                         role="progressbar"
+                                         aria-valuenow="{{ task.progress }}"
+                                         aria-valuemin="0"
+                                         aria-valuemax="100">
+                                        <span class="sr-only">{% blocktrans %}{{ progress }}% complete{% endblocktrans %}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    {%  endfor  %}
+                </ul>
+            <li class="footer">
+                <a href="{% url 'adminlte_full_all_tasks'  %}">{% trans 'View all tasks' %}</a>
+            </li>
+        </ul>
+    </li>
+{% endif %}

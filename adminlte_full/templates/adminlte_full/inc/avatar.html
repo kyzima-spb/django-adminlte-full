@@ -1,0 +1,7 @@
+{% load static %}
+
+{% if image %}
+    <img src="{% static image %}" class="{{ class|default:'img-circle' }}" alt="{{ alt }}">
+{% else %}
+    <img src="{% static 'adminlte_full/dist/img/avatar.png' %}" class="{{ class|default:'img-circle' }}" alt="{{ alt }}">
+{% endif %}
