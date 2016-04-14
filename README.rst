@@ -2,7 +2,7 @@
 django-adminlte-full
 =====
 
-This Django application is port the [AdminLTE Template](https://github.com/almasaeed2010/AdminLTE) for easy integration into Django Framework
+This Django application is port the `AdminLTE Template <https://github.com/almasaeed2010/AdminLTE>`_ for easy integration into Django Framework
 
 Quick start
 -----------
