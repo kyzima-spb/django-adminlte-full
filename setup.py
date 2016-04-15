@@ -1,12 +1,16 @@
 from setuptools import setup
 import os
+import adminlte_full
+
+
+version = adminlte_full.__version__
 
 with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
     README = readme.read()
 
 setup(
     name='django-adminlte-full',
-    version='0.0.1',
+    version=version,
     packages=['adminlte_full'],
     include_package_data=True,
     license='Apache License 2.0',
