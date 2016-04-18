@@ -14,6 +14,9 @@ ASSETS = {
     'ionicons_css': 'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
     'raphael_js': 'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js',
 
+    'html5shiv_js': 'https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js',
+    'respond_js': 'https://oss.maxcdn.com/respond/1.4.2/respond.min.js',
+
     # ----------
 
 
