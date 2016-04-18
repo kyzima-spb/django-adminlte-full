@@ -12,6 +12,9 @@ setup(
     name='django-adminlte-full',
     version=version,
     packages=['adminlte_full'],
+    install_requires=[
+        'django>=1.9',
+    ],
     include_package_data=True,
     license='Apache License 2.0',
     description='This Django application is port the AdminLTE Template for easy integration into Django Framework',
