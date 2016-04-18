@@ -1,52 +1,105 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
 ASSETS = {
+    'jquery_js': 'AdminLTE/plugins/jQuery/jQuery-2.2.0.min.js',
+    'jquery_ui_js': 'AdminLTE/plugins/jQueryUI/jQuery-ui.min.js',
     'bootstrap_css': 'AdminLTE/bootstrap/css/bootstrap.min.css',
     'bootstrap_js': 'AdminLTE/bootstrap/js/bootstrap.min.js',
+    'moment_js': 'AdminLTE/plugins/daterangepicker/moment.min.js',
+    'fastclick_js': 'AdminLTE/plugins/fastclick/fastclick.min.js',
 
-    'seiyria-bootstrap-slider_css': 'AdminLTE/plugins/slider.css',
-    'seiyria-bootstrap-slider_js': 'AdminLTE/plugins/bootstrap-slider.js',
+    'fontawesome_css': 'https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css',
+    'ionicons_css': 'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css',
+    'raphael_js': 'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js',
 
-    'bootstrap3-wysihtml5-bower_css': 'AdminLTE/plugins/bootstrap3-wysihtml5.min.css',
-    'bootstrap3-wysihtml5-bower_js': 'AdminLTE/plugins/bootstrap3-wysihtml5.min.js',
+    # ----------
 
-    'Chart.js_js': 'AdminLTE/plugins/chartjs/Chart.min.js',
+
+    # Charts
+
+    'chartjs_js': 'AdminLTE/plugins/chartjs/Chart.min.js',
+
+    'flot_js': 'AdminLTE/plugins/flot/jquery.flot.min.js',
+
+    'morrisjs_css': 'AdminLTE/plugins/morris/morris.css',
+    'morrisjs_js': 'AdminLTE/plugins/morris/morris.min.js',
+
+    'sparkline_js': 'AdminLTE/plugins/sparkline/jquery.sparkline.min.js',
+
+    # ----------
+
+
+    # Form Elements
+
+    'bootstrap_slider_css': 'AdminLTE/plugins/bootstrap-slider/slider.css',
+    'bootstrap_slider_js': 'AdminLTE/plugins/bootstrap-slider/bootstrap-slider.js',
+
+    'ionslider_css': 'AdminLTE/plugins/ionslider/ion.rangeSlider.css',
+    'ionslider_skin_flat_css': 'AdminLTE/plugins/ionslider/ion.rangeSlider.skinFlat.css',
+    'ionslider_skin_nice_css': 'AdminLTE/plugins/ionslider/ion.rangeSlider.skinNice.css',
+    'ionslider_js': 'AdminLTE/plugins/ionslider/ion.rangeSlider.min.js',
+
+    'bootstrap_datepicker_css': 'AdminLTE/plugins/datepicker3.css',
+    'bootstrap_datepicker_js': 'AdminLTE/plugins/bootstrap-datepicker.js',
+
+    'bootstrap_daterangepicker_css': 'AdminLTE/plugins/daterangepicker/daterangepicker-bs3.css',
+    'bootstrap_daterangepicker_js': 'AdminLTE/plugins/daterangepicker/daterangepicker.js',
+
+    'bootstrap_colorpicker_css': 'AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.css',
+    'bootstrap_colorpicker_js': 'AdminLTE/plugins/colorpicker/bootstrap-colorpicker.min.js',
+
+    'bootstrap_timepicker_css': 'AdminLTE/plugins/timepicker/bootstrap-timepicker.min.css',
+    'bootstrap_timepicker_js': 'AdminLTE/plugins/timepicker/bootstrap-timepicker.min.js',
+
+    'icheck_css': 'AdminLTE/plugins/iCheck/all.css',
+    'icheck_js': 'AdminLTE/plugins/iCheck/icheck.min.js',
+
+    'input_mask_js': 'AdminLTE/plugins/input-mask/jquery.inputmask.js',
+    'input_mask_extensions_js': 'AdminLTE/plugins/input-mask/jquery.inputmask.extensions.js',
+    'input_mask_date_ext_js': 'AdminLTE/plugins/input-mask/jquery.inputmask.date.extensions.js',
+    'input_mask_numeric_ext_js': 'AdminLTE/plugins/input-mask/jquery.inputmask.numeric.extensions.js',
+    'input_mask_phone_ext_js': 'AdminLTE/plugins/input-mask/jquery.inputmask.phone.extensions.js',
+    'input_mask_regex_ext_js': 'AdminLTE/plugins/input-mask/jquery.inputmask.regex.extensions.js',
+
+    'select2_css': 'AdminLTE/plugins/select2/select2.min.css',
+    'select2_js': 'AdminLTE/plugins/select2/select2.full.min.js',
+
+    # ----------
+
+
+    # Editors
+
+    'bootstrap_wysihtml5_css': 'AdminLTE/plugins/bootstrap3-wysihtml5.all.min.css',
+    'bootstrap_wysihtml5_js': 'AdminLTE/plugins/bootstrap3-wysihtml5.all.min.js',
 
     'ckeditor_js': 'AdminLTE/plugins/ckeditor/ckeditor.js',
 
-    'mjolnic-bootstrap-colorpicker_css': 'AdminLTE/plugins/bootstrap-colorpicker.min.css',
-    'mjolnic-bootstrap-colorpicker_js': 'AdminLTE/plugins/bootstrap-colorpicker.min.js',
+    # ----------
+
+
+    # Other
 
     'datatables_css': 'AdminLTE/plugins/datatables/jquery.dataTables.min.css',
     'datatables_js': 'AdminLTE/plugins/datatables/jquery.dataTables.min.js',
 
-    'datatables_css': 'AdminLTE/plugins/datatables/dataTables.bootstrap.css',
-    'datatables_js': 'AdminLTE/plugins/datatables/dataTables.bootstrap.js',
+    'datatables_bootstrap_css': 'AdminLTE/plugins/datatables/dataTables.bootstrap.css',
+    'datatables_bootstrap_js': 'AdminLTE/plugins/datatables/dataTables.bootstrap.js',
 
-    'bootstrap-datepicker_css': 'AdminLTE/plugins/datepicker3.css',
-    'bootstrap-datepicker_js': 'AdminLTE/plugins/bootstrap-datepicker.js',
+    'fullcalendar_css': 'AdminLTE/plugins/fullcalendar/fullcalendar.min.css',
+    'fullcalendar_print_css': 'AdminLTE/plugins/fullcalendar/fullcalendar.print.css',
+    'fullcalendar_js': 'AdminLTE/plugins/fullcalendar/fullcalendar.min.js',
 
-    'jquery': 'AdminLTE/plugins/jQuery/jQuery-2.2.0.min.js',
+    'knob_js': 'AdminLTE/plugins/knob/jquery.knob.js',
 
-    'html5shiv': '~3.7.2',
-    'respond': '~1.4.2',
-    'components-font-awesome': '~4.5',
-    'ionicons': '*',
+    'jvectormap_css': 'AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.css',
+    'jvectormap_js': 'AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js',
 
-    'bootstrap-daterangepicker': '~1.3.21',
-    'fastclick': '1.0.6',
-    'flot': '~0.8.3',
-    'fullcalendar': '~2.3.2',
-    'iCheck': '~1.0.2',
-    'jquery.inputmask': '~3.1.63',
-    'ion.rangeSlider': '~2.0.9',
-    'jquery-ui': '~1.11.4',
-    'bower-jvectormap': '~1.2.2',
-    'jquery-knob': '~1.2.11',
-    'morris.js': '~0.5.1',
-    'raphael': '~2.1.4',
-    'pace': '~1.0.2',
-    'slimScroll': '~1.3.3',
-    'jqueryui-timepicker-addon': '~1.5.5'
+    'slimscroll_js': 'AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js',
+
+    'pace_css': 'AdminLTE/plugins/pace/pace.min.css',
+    'pace_js': 'AdminLTE/plugins/pace/pace.min.js',
+
+    # ----------
 }
