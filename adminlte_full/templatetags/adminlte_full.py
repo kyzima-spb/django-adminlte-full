@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 from django import template
-from django.contrib.staticfiles.templatetags.staticfiles import static
 from ..assets import ASSETS
 from ..utils import Html
 from adminlte_full.messages import MessagesList
@@ -15,18 +14,21 @@ register = template.Library()
 
 
 @register.simple_tag
-def link_css(name):
-    name = '{}_css'.format(name.lower())
-    url = ASSETS.get(name, name)
-    return Html.css_file(static(url)) if url else ''
+def link_css(url):
+    name = '{}_css'.format(url).lower()
+    url = Html.static(
+        ASSETS.get(name, url)
+    )
+    return Html.css_file(url)
 
 
 @register.simple_tag
-def link_js(name):
-    print('JS: ', name)
-    name = '{}_js'.format(name.lower())
-    url = ASSETS.get(name, name)
-    return Html.js_file(static(url)) if url else ''
+def link_js(url):
+    name = '{}_js'.format(url).lower()
+    url = Html.static(
+        ASSETS.get(name, url)
+    )
+    return Html.js_file(url)
 
 
 # @register.inclusion_tag('adminlte_full/breadcrumb/breadcrumb.html')

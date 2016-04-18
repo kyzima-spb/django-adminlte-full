@@ -5,6 +5,8 @@ from django.forms.utils import flatatt
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html
 from django.utils.encoding import force_text
+from django.contrib.staticfiles.templatetags.staticfiles import static
+import re
 
 
 class Html(object):
@@ -19,13 +21,26 @@ class Html(object):
 
     @classmethod
     def css_file(cls, url):
-        return cls.tag('link', {
-            'rel': 'stylesheet',
-            'href': url,
-        })
+        if url:
+            return cls.tag('link', {
+                'rel': 'stylesheet',
+                'href': url,
+            })
+        return ''
 
     @classmethod
     def js_file(cls, url):
-        return cls.tag('script', {
-            'src': url
-        })
+        if url:
+            return cls.tag('script', {
+                'src': url
+            })
+        return ''
+
+    @classmethod
+    def static(cls, path):
+        if not path:
+            return ''
+
+        absolute = re.match(r'^(http|https|//)', path, re.IGNORECASE)
+
+        return path if absolute else static(path)
