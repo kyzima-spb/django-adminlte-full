@@ -2,6 +2,9 @@
 # -*- coding: utf-8 -*-
 
 from django import template
+from django.contrib.staticfiles.templatetags.staticfiles import static
+from ..assets import ASSETS
+from ..utils import Html
 from adminlte_full.messages import MessagesList
 from adminlte_full.notifications import NotificationList
 from adminlte_full.tasks import TaskList
@@ -9,6 +12,21 @@ from adminlte_full.menu import Menu
 
 
 register = template.Library()
+
+
+@register.simple_tag
+def link_css(name):
+    name = '{}_css'.format(name.lower())
+    url = ASSETS.get(name, name)
+    return Html.css_file(static(url)) if url else ''
+
+
+@register.simple_tag
+def link_js(name):
+    print('JS: ', name)
+    name = '{}_js'.format(name.lower())
+    url = ASSETS.get(name, name)
+    return Html.js_file(static(url)) if url else ''
 
 
 # @register.inclusion_tag('adminlte_full/breadcrumb/breadcrumb.html')
