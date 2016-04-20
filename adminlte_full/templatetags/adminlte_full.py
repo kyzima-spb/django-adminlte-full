@@ -4,10 +4,10 @@
 from django import template
 from ..assets import ASSETS
 from ..utils import Html
-from adminlte_full.messages import MessagesList
-from adminlte_full.notifications import NotificationList
-from adminlte_full.tasks import TaskList
-from adminlte_full.menu import Menu
+from ..messages import MessagesList
+from ..notifications import NotificationList
+from ..tasks import TaskList
+from ..menu import Menu
 
 
 register = template.Library()
