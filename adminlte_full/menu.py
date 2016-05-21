@@ -52,7 +52,7 @@ class MenuItem(object):
 
     def has_active_child(self):
         for child in self.children:
-            if child.is_active:
+            if child.is_active():
                 return True
         return None
 
