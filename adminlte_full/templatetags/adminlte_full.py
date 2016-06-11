@@ -31,6 +31,11 @@ def link_js(url):
     return Html.js_file(url)
 
 
+@register.simple_tag
+def gravatar_url(email, size=200):
+    return Html.gravatar_url(email, size)
+
+
 # @register.inclusion_tag('adminlte_full/breadcrumb/breadcrumb.html')
 # def show_breadcrumb():
 #     return {}
@@ -75,7 +80,6 @@ def show_notifications():
 def show_search_form():
     return {}
 
-
 @register.inclusion_tag('adminlte_full/navbar/tasks.html')
 def show_tasks():
     sender = TaskList()
@@ -87,11 +91,17 @@ def show_tasks():
             'total': sender.total,
         }
 
-
 @register.inclusion_tag('adminlte_full/navbar/user.html', takes_context=True)
 def show_user(context):
     return {
         'user': context.get('request').user # ????
+    }
+
+
+@register.inclusion_tag('adminlte_full/sidebar/user-panel.html', takes_context=True)
+def show_user_panel(context):
+    return {
+        'user': context.get('request').user
     }
 
 # @register.inclusion_tag('adminlte_full/sidebar/user-panel.html')

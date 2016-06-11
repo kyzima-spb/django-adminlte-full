@@ -1,0 +1,12 @@
+{% load adminlte_full i18n %}
+<div class="user-panel">
+    <div class="pull-left image">
+        <img src="{% gravatar_url user.email %}" class="img-circle" alt="User Image">
+    </div>
+    <div class="pull-left info">
+        <p>{% firstof user.get_full_name user.get_username %}</p>
+{#        <a href="#">#}
+            <i class="fa fa-circle text-success"></i> {% trans 'Online' %}
+{#        </a>#}
+    </div>
+</div>

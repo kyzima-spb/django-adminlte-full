@@ -40,7 +40,7 @@
             <section class="sidebar">
                 {% block sidebar %}
                     {% if request.user.is_authenticated %}
-{#                        {% show_user_panel %}#}
+                        {% show_user_panel %}
                         {% show_search_form %}
                     {% endif %}
                     {% show_menu %}

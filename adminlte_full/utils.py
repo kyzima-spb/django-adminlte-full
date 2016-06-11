@@ -7,6 +7,11 @@ from django.utils.html import format_html
 from django.utils.encoding import force_text
 from django.contrib.staticfiles.templatetags.staticfiles import static
 import re
+from hashlib import md5
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
 
 
 class Html(object):
@@ -35,6 +40,16 @@ class Html(object):
                 'src': url
             })
         return ''
+
+    @classmethod
+    def gravatar_url(cls, email, size=200):
+        return 'https://www.gravatar.com/avatar/{}?{}'.format(
+            md5(email.lower().encode('utf-8')).hexdigest(),
+            urlencode({
+                'd': cls.static('dist/img/avatar.png'),
+                's': str(size)
+            })
+        )
 
     @classmethod
     def static(cls, path):

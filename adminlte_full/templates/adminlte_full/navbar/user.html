@@ -1,21 +1,30 @@
-{% load i18n %}
+{% load adminlte_full i18n %}
 
 <li class="dropdown user user-menu">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-        <i class="glyphicon glyphicon-user"></i>
+        <img src="{% gravatar_url user.email %}" class="user-image" alt="User Image">
         <span class="hidden-xs">{% firstof user.get_short_name user.get_username %}</span>
     </a>
+
     <ul class="dropdown-menu">
-        <li>
-            <a href="{% url 'adminlte_full_profile' %}">
-                <i class="glyphicon glyphicon-wrench"></i> {% trans 'Change password' %}
-            </a>
+        <li class="user-header">
+            <img src="{% gravatar_url user.email %}" class="img-circle" alt="User Image">
+            <p>
+                {% firstof user.get_full_name user.get_username %}
+                <small>{{ user.date_joined }}</small>
+            </p>
         </li>
-        <li role="separator" class="divider"></li>
-        <li>
-            <a href="{% url 'adminlte_full_logout' %}">
-                <i class="glyphicon glyphicon-log-out"></i> {% trans 'Log out' %}
-            </a>
+        <li class="user-footer">
+            <div class="pull-left">
+                <a class="btn btn-default btn-flat" href="{% url 'adminlte_full_profile' %}">
+                    {% trans 'Change password' %}
+                </a>
+            </div>
+            <div class="pull-right">
+                <a class="btn btn-default btn-flat" href="{% url 'adminlte_full_logout' %}">
+                    {% trans 'Log out' %}
+                </a>
+            </div>
         </li>
     </ul>
 </li>
