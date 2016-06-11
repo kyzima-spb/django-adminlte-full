@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from django import template
+from django.contrib import messages
 from ..assets import ASSETS
 from ..utils import Html
 from ..messages import MessagesList
@@ -41,6 +42,23 @@ def gravatar_url(email, size=200):
 #     return {}
 
 
+@register.inclusion_tag('adminlte_full/inc/flash-message.html')
+def show_flash_message(message):
+    icon = message.level_tag
+
+    if message.level_tag == messages.DEFAULT_TAGS[messages.ERROR]:
+        icon = 'ban'
+
+    if message.level_tag == messages.DEFAULT_TAGS[messages.SUCCESS]:
+        icon = 'check'
+
+    return {
+        'message': message,
+        'level_class': message.level_tag,
+        'icon': icon
+    }
+
+
 @register.inclusion_tag('adminlte_full/sidebar/menu.html', takes_context=True)
 def show_menu(context):
     sender = Menu()
@@ -75,7 +93,6 @@ def show_notifications():
             'total': sender.total,
         }
 
-
 @register.inclusion_tag('adminlte_full/sidebar/search-form.html')
 def show_search_form():
     return {}
@@ -91,11 +108,16 @@ def show_tasks():
             'total': sender.total,
         }
 
+
 @register.inclusion_tag('adminlte_full/navbar/user.html', takes_context=True)
 def show_user(context):
     return {
         'user': context.get('request').user # ????
     }
+
+# @register.inclusion_tag('adminlte_full/sidebar/user-panel.html')
+# def show_user_panel():
+#     return {}
 
 
 @register.inclusion_tag('adminlte_full/sidebar/user-panel.html', takes_context=True)
@@ -103,7 +125,3 @@ def show_user_panel(context):
     return {
         'user': context.get('request').user
     }
-
-# @register.inclusion_tag('adminlte_full/sidebar/user-panel.html')
-# def show_user_panel():
-#     return {}

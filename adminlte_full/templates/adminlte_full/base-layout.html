@@ -64,6 +64,17 @@
 
             <!-- Main content -->
             <section class="content">
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                {% show_flash_message message %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
                 {% block page_content %}{% endblock %}
             </section>
             <!-- /.content -->

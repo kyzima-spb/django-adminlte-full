@@ -1,0 +1,6 @@
+{% load i18n %}
+<div class="alert alert-{{ level_class }} alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    <h4><i class="icon fa fa-{{ icon }}"></i> {% trans level_class %}</h4>
+    {{ message }}
+</div>
