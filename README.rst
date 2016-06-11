@@ -63,6 +63,8 @@ A simple real example would be involve some files, like the following ones.
         single_menuitem_4 = MenuItem(4, 'Index', 'view_3')
         parent_menuitem_2.add_child(single_menuitem_3)
         parent_menuitem_2.add_child(single_menuitem_4)
+        sender.add_item(single_menuitem_1)
+        sender.add_item(parent_menuitem_2)
 
     Menu.show_signal.connect(my_menuitems_builder)
 
