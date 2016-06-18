@@ -46,10 +46,11 @@ def gravatar_url(email, size=200):
 def show_flash_message(message):
     icon = message.level_tag
 
-    if message.level_tag == messages.DEFAULT_TAGS[messages.ERROR]:
+    if message.level_tag == messages.DEFAULT_TAGS[messages.DEBUG]:
+        icon = 'bug'
+    elif message.level_tag == messages.DEFAULT_TAGS[messages.ERROR]:
         icon = 'ban'
-
-    if message.level_tag == messages.DEFAULT_TAGS[messages.SUCCESS]:
+    elif message.level_tag == messages.DEFAULT_TAGS[messages.SUCCESS]:
         icon = 'check'
 
     return {
