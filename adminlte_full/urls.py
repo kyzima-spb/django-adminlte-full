@@ -10,4 +10,7 @@ urlpatterns = [
 
     url(r'^task/(?P<id>\w+)$', views.index, name='adminlte_full_show_task'),
     url(r'^tasks$', views.index, name='adminlte_full_all_tasks'),
+
+    url(r'^profile$', views.index, name='adminlte_full_profile'),
+    url(r'^logout$', views.index, name='adminlte_full_logout'),
 ]
