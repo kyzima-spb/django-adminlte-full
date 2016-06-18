@@ -1,3 +1,5 @@
 *.pyc
-django_adminlte_full.egg-info
+*.sqlite3
+env
 dist
+django_adminlte_full.egg-info
