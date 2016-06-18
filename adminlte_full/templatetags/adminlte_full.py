@@ -56,7 +56,7 @@ def show_flash_message(message):
     return {
         'message': message,
         'level_class': message.level_tag,
-        'icon': icon
+        'icon': 'fa fa-' + icon
     }
 
 

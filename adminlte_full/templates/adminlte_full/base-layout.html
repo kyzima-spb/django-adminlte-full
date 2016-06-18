@@ -66,13 +66,13 @@
             <section class="content">
 
                 {% if messages %}
-                    {% for message in messages %}
-                        <div class="row">
-                            <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            {% for message in messages %}
                                 {% show_flash_message message %}
-                            </div>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
+                    </div>
                 {% endif %}
 
                 {% block page_content %}{% endblock %}
