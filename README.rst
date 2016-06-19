@@ -7,10 +7,11 @@ This Django application is port the `AdminLTE Template <https://github.com/almas
 Quick start
 -----------
 
-1. Add "adminlte_full" to your INSTALLED_APPS setting like this::
+1. Add "bootstrap3" and "adminlte_full" to your INSTALLED_APPS setting like this::
 
     INSTALLED_APPS = [
         ...
+        'bootstrap3',
         'adminlte_full',
     ]
 
