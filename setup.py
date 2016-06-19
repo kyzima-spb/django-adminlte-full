@@ -14,6 +14,7 @@ setup(
     packages=['adminlte_full'],
     install_requires=[
         'django>=1.9',
+        'django-bootstrap3>=7.0'
     ],
     include_package_data=True,
     license='Apache License 2.0',
