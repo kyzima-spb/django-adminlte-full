@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib.auth import views as auth_views
 from . import views
@@ -22,6 +23,15 @@ urlpatterns = [
             'post_change_redirect': 'adminlte_full_profile'
         },
         name='adminlte_full_profile'
+    ),
+
+    url(
+        r'^login$',
+        auth_views.login,
+        {
+            'template_name': 'adminlte_full/user/login.html',
+        },
+        name='adminlte_full_login'
     ),
 
     url(
