@@ -114,7 +114,7 @@ class Menu(object):
         except:
             pass
 
-        return resolved and resolved.url_name == route
+        return resolved and ":".join(resolved.namespaces+[resolved.url_name]) == route
 
     def activate_by_context(self, context):
         self.__activate_by_path(
