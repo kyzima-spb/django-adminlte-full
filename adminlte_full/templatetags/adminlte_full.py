@@ -63,7 +63,7 @@ def show_flash_message(message):
 @register.inclusion_tag('adminlte_full/sidebar/menu.html', takes_context=True)
 def show_menu(context):
     sender = Menu()
-    sender.show_signal.send(sender)
+    sender.show_signal.send(sender, context=context)
     sender.activate_by_context(context)
 
     return {

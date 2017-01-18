@@ -61,11 +61,17 @@ A simple real example would be involve some files, like the following ones.
         parent_menuitem_2 = MenuItem(2, 'Parent Menu', '#')
         single_menuitem_3 = MenuItem(3, 'Index', 'view_2')
         single_menuitem_4 = MenuItem(4, 'Index', 'view_3')
+        
+        user=kwargs['context']['user']
+        if user.has_perm('app.view_data'):
+            single_menuitem_5 = MenuItem(5, 'Data', 'dataview')
+            sender.add_item(sender.add_child(single_menuitem_5))
+        
         parent_menuitem_2.add_child(single_menuitem_3)
         parent_menuitem_2.add_child(single_menuitem_4)
         sender.add_item(single_menuitem_1)
         sender.add_item(parent_menuitem_2)
-
+        
     Menu.show_signal.connect(my_menuitems_builder)
 
 * The template file::
