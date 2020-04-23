@@ -1,8 +1,5 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import django.dispatch
-from django.core.urlresolvers import reverse, resolve
+from django.urls import reverse, resolve
 from collections import OrderedDict
 
 

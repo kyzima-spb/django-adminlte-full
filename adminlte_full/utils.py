@@ -11,7 +11,7 @@ from django.forms.utils import flatatt
 from django.utils.safestring import mark_safe
 from django.utils.html import format_html
 from django.utils.encoding import force_text
-from django.contrib.staticfiles.templatetags.staticfiles import static
+from django.templatetags.static import static
 
 
 class Html(object):
