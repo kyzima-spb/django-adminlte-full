@@ -1,0 +1,11 @@
+{% if messages %}
+  <div class="flash-messages-box">
+    {% for m in messages %}
+      <div class="alert alert-{{ m.level }} alert-dismissible {{ m.styles }}">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <h5><i class="icon {{ m.icon }}"></i> {{ m.title }}</h5>
+        {{ m.text }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}

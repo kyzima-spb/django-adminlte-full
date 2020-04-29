@@ -1,45 +1,100 @@
-<!DOCTYPE html>{% load static adminlte_full %}
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block page_title %}{% endblock %} | {% block title %}AdminLTE{% endblock %}</title>
+{% extends "adminlte_full/skeleton.html" %}
+{% load static adminlte_full %}
 
-    {% block stylesheets %}
-        {% link_css 'bootstrap' %}
-        {% link_css 'fontawesome' %}
-        {% link_css 'ionicons' %}
-        {% link_css 'AdminLTE/dist/css/AdminLTE.min.css' %}
-        <!-- AdminLTE Skins. Choose a skin from the css/skins
-             folder instead of downloading all of them to reduce the load. -->
-        {% link_css 'AdminLTE/dist/css/skins/_all-skins.min.css' %}
-        {% link_css 'icheck' %}
-        {% link_css 'adminlte-full.css' %}
-    {% endblock %}
+{% block styles %}
+  {{ block.super }}
+{% endblock %}
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        {% link_js 'html5shiv' %}
-        {% link_js 'respond' %}
-    <![endif]-->
+{% block body_attributes %} class="hold-transition sidebar-mini"{% endblock %}
 
-    {%  block javascripts_head %}{% endblock %}
-</head>
+{% block main %}
+  <div class="wrapper">
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+      {% block navbar %}
+        <ul class="navbar-nav">
+          {% block navbar_left %}
+            <li class="nav-item">
+              <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            {% block navbar_left_links %}
+              {% comment %}
+                <li class="nav-item d-none d-sm-inline-block">
+                  <a href="#" class="nav-link"></a>
+                </li>
+              {% endcomment %}
+            {% endblock navbar_left_links %}
+          {% endblock navbar_left %}
+        </ul>
+        {% block search_form %}{% endblock search_form %}
+        <ul class="navbar-nav ml-auto">
+          {% block navbar_right %}{% endblock navbar_right %}
+        </ul>
+      {% endblock navbar %}
+    </nav>
 
-<body class="{% block body_css %}hold-transition skin-blue sidebar-mini{% endblock %}">
-    {% block body %}{% endblock %}
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      {% block brand_logo %}
+        <a href="/" class="brand-link">
+          <img src="{% static '/dist/img/AdminLTELogo.png' %}"
+               alt="{% adminlte.config 'ADMINLTE_BRAND_IMAGE_ALT' %}"
+               class="brand-image img-circle elevation-3"
+               style="opacity: .8">
+          <span class="brand-text font-weight-light">{% adminlte.config 'ADMINLTE_BRAND_TEXT' %}</span>
+        </a>
+      {% endblock brand_logo %}
 
-    {% block javascripts %}
-        {% link_js 'jquery' %}
-        {% link_js 'bootstrap' %}
-        {% link_js 'icheck' %}
-        {% link_js 'slimscroll' %}
-        {% link_js 'fastclick' %}
-        {% link_js 'AdminLTE/dist/js/app.min.js' %}
-    {% endblock %}
+      {% block sidebar %}
+        <div class="sidebar">
+          {% block user_panel %}
+            {% adminlte.render_user_panel  %}
+          {% endblock user_panel %}
 
-    {% block javascripts_inline %}{% endblock %}
-</body>
-</html>
+          <nav class="mt-2">
+            {% block nav_sidebar %}{% endblock nav_sidebar %}
+          </nav>
+        </div>
+      {% endblock sidebar %}
+    </aside>
+
+    <div class="content-wrapper">
+      {% block content_wrapper %}
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1>{% block page_title %}Blank Page{% endblock %}</h1>
+              </div>
+              <div class="col-sm-6">
+                {% block breadcrumb %}
+                  {% comment %}
+                    <ol class="breadcrumb float-sm-right">
+                      <li class="breadcrumb-item"><a href="#">Home</a></li>
+                      <li class="breadcrumb-item active">Blank Page</li>
+                    </ol>
+                  {% endcomment %}
+                {% endblock breadcrumb %}
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="content">
+          {% adminlte.render_flash_messages  %}
+          {% block page_content %}{% endblock %}
+        </section>
+      {% endblock content_wrapper %}
+    </div>
+
+    <footer class="main-footer">
+      {% block main_footer %}
+        <div class="float-right d-none d-sm-block">
+          <b>Version</b> 3.0.4
+        </div>
+        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+      {% endblock main_footer %}
+    </footer>
+
+    <aside class="control-sidebar control-sidebar-dark">
+      {% block control-sidebar %}{% endblock control-sidebar %}
+    </aside>
+  </div>
+{% endblock main %}
