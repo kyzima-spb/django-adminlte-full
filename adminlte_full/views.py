@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls.base import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect
 
 from .context_processors import config
 
@@ -30,6 +31,17 @@ class PasswordResetView(auth_views.PasswordResetView):
 class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
     template_name = 'adminlte_full/auth/recover_password.html'
     success_url = reverse_lazy(config['ADMINLTE_LOGIN_ENDPOINT'])
+    reset_url = reverse_lazy(config['ADMINLTE_PASSWORD_RESET_ENDPOINT'])
+
+    def dispatch(self, *args, **kwargs):
+        result = super().dispatch(*args, **kwargs)
+
+        if not self.validlink:
+            msg = _('The password reset link was invalid, possibly because it has already been used.  Please request a new password reset.')
+            messages.error(self.request, msg)
+            return HttpResponseRedirect(self.reset_url)
+
+        return result
 
     def form_valid(self, form):
         messages.success(self.request, _('Your password has been set.  You may go ahead and log in now.'))
