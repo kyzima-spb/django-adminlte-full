@@ -1,10 +1,24 @@
-from django.conf import settings
-from django.conf.urls import url, include
-from django.contrib.auth import views as auth_views
+from django.conf.urls import url
+from django.contrib.auth import views as auth_views, urls
+from django.urls import path, include
+
 from . import views
+from .context_processors import config
+
 
 urlpatterns = [
-    url(r'', include('django.contrib.auth.urls')),
+    # path('users/', include('django.contrib.auth.urls')),
+
+    # Auth views
+    path('login/', views.LoginView.as_view(), name=config['ADMINLTE_LOGIN_ENDPOINT']),
+    path('logout/', auth_views.LogoutView.as_view(), name=config['ADMINLTE_LOGOUT_ENDPOINT']),
+
+    path('password_change/', views.PasswordChangeView.as_view(), name=config['ADMINLTE_CHANGE_PASSWORD_ENDPOINT']),
+
+    path('password_reset/', views.PasswordResetView.as_view(), name=config['ADMINLTE_PASSWORD_RESET_ENDPOINT']),
+    path('reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name=config['ADMINLTE_PASSWORD_RECOVER_ENDPOINT']),
+    path('reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    # End auth views
 
     url(r'^message/(?P<id>\w+)$', views.index, name='adminlte_full_show_message'),
     url(r'^messages$', views.index, name='adminlte_full_all_messages'),
@@ -14,32 +28,4 @@ urlpatterns = [
 
     url(r'^task/(?P<id>\w+)$', views.index, name='adminlte_full_show_task'),
     url(r'^tasks$', views.index, name='adminlte_full_all_tasks'),
-
-    url(
-        r'^profile$',
-        auth_views.password_change,
-        {
-            'template_name': 'adminlte_full/user/password_change_form.html',
-            'post_change_redirect': 'adminlte_full_profile'
-        },
-        name='adminlte_full_profile'
-    ),
-
-    url(
-        r'^login$',
-        auth_views.login,
-        {
-            'template_name': 'adminlte_full/user/login.html',
-        },
-        name='adminlte_full_login'
-    ),
-
-    url(
-        r'^logout$',
-        auth_views.logout_then_login,
-        {
-            'login_url': '/'
-        },
-        name='adminlte_full_logout'
-    ),
 ]
