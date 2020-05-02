@@ -1,74 +1,102 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+from typing import NamedTuple
 
+from adminlte_base import AdminLTE as Base
+from adminlte_base.constants import ALERTS
 from django import template
-from django.contrib import messages
-from ..assets import ASSETS
-from ..utils import Html
+from django.urls import reverse
+
+from ..context_processors import config
+from ..menu import Menu, MenuItem
 from ..messages import MessagesList
+from ..models import MenuModel
 from ..notifications import NotificationList
 from ..tasks import TaskList
-from ..menu import Menu
+from ..utils import Html
 
 
+class Message(NamedTuple):
+    title: str
+    text: str
+    level: str
+    icon: str
+    styles: str
+
+
+def prepare_message(message):
+    level, icon = ALERTS[message.level_tag]
+    return Message(message.level_tag, message.message, level, icon, message.extra_tags)
+
+
+class AdminLTE(Base):
+    def static(self, filename):
+        pass
+
+
+adminlte = AdminLTE()
 register = template.Library()
 
 
-@register.simple_tag
-def link_css(url):
-    name = '{}_css'.format(url).lower()
-    url = Html.static(
-        ASSETS.get(name, url)
-    )
-    return Html.css_file(url)
-
-
-@register.simple_tag
-def link_js(url):
-    name = '{}_js'.format(url).lower()
-    url = Html.static(
-        ASSETS.get(name, url)
-    )
-    return Html.js_file(url)
-
-
-@register.simple_tag
-def gravatar_url(email, size=200):
+@register.filter
+def gravatar(email, size=200):
     return Html.gravatar_url(email, size)
+
+
+@register.inclusion_tag(
+    name='adminlte.render_flash_messages',
+    filename='adminlte_full/markup/flash_messages.html',
+    takes_context=True
+)
+def render_flash_messages(context):
+    return {'messages': map(prepare_message, context['messages'])}
+
+
+@register.inclusion_tag(
+    name='adminlte.render_user_panel',
+    filename='adminlte_full/markup/user_panel.html',
+    takes_context=True
+)
+def render_user_panel(context):
+    user = context['user']
+    profile_endpoint = config['ADMINLTE_PROFILE_ENDPOINT']
+    return {
+        'user': user,
+        'profile_url': reverse(profile_endpoint, args=(user.id,)),
+    }
+
+
+@register.inclusion_tag(
+    filename='adminlte_full/markup/sidebar_menu.html',
+    takes_context=True
+)
+def render_menu(context, program_name):
+    data = MenuModel.objects.get(program_name=program_name)
+    menu = Menu()
+
+    for i in data.items:
+        menu.add_item(MenuItem(
+            id_item=i.id,
+            title=i.title,
+            endpoint=i.endpoint,
+            endpoint_args=i.get_endpoint_args(),
+            endpoint_kwargs=i.get_endpoint_kwargs(),
+            parent=menu.get_item(i.parent and i.parent.id),
+            item_type=i.type,
+            icon=i.icon,
+            help=i.help
+        ))
+
+    menu.activate_by_context(context)
+    menu.show_signal.send(menu, context=context)
+
+    return {
+        'menu': menu,
+        'items': menu
+    }
 
 
 # @register.inclusion_tag('adminlte_full/breadcrumb/breadcrumb.html')
 # def show_breadcrumb():
 #     return {}
-
-
-@register.inclusion_tag('adminlte_full/inc/flash-message.html')
-def show_flash_message(message):
-    icon = message.level_tag
-
-    if message.level_tag == messages.DEFAULT_TAGS[messages.DEBUG]:
-        icon = 'bug'
-    elif message.level_tag == messages.DEFAULT_TAGS[messages.ERROR]:
-        icon = 'ban'
-    elif message.level_tag == messages.DEFAULT_TAGS[messages.SUCCESS]:
-        icon = 'check'
-
-    return {
-        'message': message,
-        'level_class': message.level_tag,
-        'icon': 'fa fa-' + icon
-    }
-
-
-@register.inclusion_tag('adminlte_full/sidebar/menu.html', takes_context=True)
-def show_menu(context):
-    sender = Menu()
-    sender.show_signal.send(sender, context=context)
-    sender.activate_by_context(context)
-
-    return {
-        'menu': sender.items
-    }
 
 
 @register.inclusion_tag('adminlte_full/navbar/messages.html')
@@ -94,9 +122,11 @@ def show_notifications():
             'total': sender.total,
         }
 
+
 @register.inclusion_tag('adminlte_full/sidebar/search-form.html')
 def show_search_form():
     return {}
+
 
 @register.inclusion_tag('adminlte_full/navbar/tasks.html')
 def show_tasks():
@@ -108,21 +138,3 @@ def show_tasks():
             'tasks': sender.tasks,
             'total': sender.total,
         }
-
-
-@register.inclusion_tag('adminlte_full/navbar/user.html', takes_context=True)
-def show_user(context):
-    return {
-        'user': context.get('request').user # ????
-    }
-
-# @register.inclusion_tag('adminlte_full/sidebar/user-panel.html')
-# def show_user_panel():
-#     return {}
-
-
-@register.inclusion_tag('adminlte_full/sidebar/user-panel.html', takes_context=True)
-def show_user_panel(context):
-    return {
-        'user': context.get('request').user
-    }

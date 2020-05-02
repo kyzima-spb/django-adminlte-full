@@ -1,0 +1,31 @@
+{% if not is_submenu %}
+  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+{% endif %}
+{% for item in items %}
+  {% if item.type == 'header' %}
+    <li class="nav-header">{{ item.title }}</li>
+  {% else %}
+    <li class="nav-item{% if item.has_children %} has-treeview{% endif %}">
+      <a class="nav-link{% if item.is_active %} active{% endif %}" href="{{ item.url }}" title="{{ item.help }}">
+        {% if item.icon %}
+          <i class="nav-icon {{ item.icon }}"></i>
+        {% endif %}
+        <p>
+          {{ item.title }}
+          {% if item.has_children %}
+            <i class="right fas fa-angle-left"></i>
+          {% endif %}
+          {% if item.badge %}
+            <span class="right badge badge-{{ item.badge.1 }}">{{ item.badge.0 }}</span>
+          {% endif %}
+        </p>
+      </a>
+      {% if item.has_children %}
+        <ul class="nav nav-treeview">
+          {% include 'adminlte_full/markup/sidebar_menu.html' with items=item.children is_submenu=1 %}
+        </ul>
+      {% endif %}
+    </li>
+  {% endif %}
+{% endfor %}
+{% if not is_submenu %}</ul>{% endif %}

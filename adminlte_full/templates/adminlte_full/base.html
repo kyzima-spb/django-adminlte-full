@@ -36,10 +36,10 @@
       {% block brand_logo %}
         <a href="/" class="brand-link">
           <img src="{% static '/dist/img/AdminLTELogo.png' %}"
-               alt="{% adminlte.config 'ADMINLTE_BRAND_IMAGE_ALT' %}"
+               alt="{{ config.ADMINLTE_BRAND_IMAGE_ALT }}"
                class="brand-image img-circle elevation-3"
                style="opacity: .8">
-          <span class="brand-text font-weight-light">{% adminlte.config 'ADMINLTE_BRAND_TEXT' %}</span>
+          <span class="brand-text font-weight-light">{{ config.ADMINLTE_BRAND_TEXT }}</span>
         </a>
       {% endblock brand_logo %}
 
@@ -94,7 +94,7 @@
     </footer>
 
     <aside class="control-sidebar control-sidebar-dark">
-      {% block control-sidebar %}{% endblock control-sidebar %}
+      {% block control_sidebar %}{% endblock control_sidebar %}
     </aside>
   </div>
 {% endblock main %}

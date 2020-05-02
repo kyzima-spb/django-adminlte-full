@@ -10,7 +10,7 @@
     <meta name="description" content="{% block meta_description %}{% endblock %}">
     <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
   {% endblock meta %}
-  <title>{% block title %}{% block page_title %}{% endblock page_title %} | {% block site_title %}{% adminlte.config 'ADMINLTE_SITE_TITLE' %}{% endblock site_title %}{% endblock title %}</title>
+  <title>{% block title %}{% block page_title %}{% endblock page_title %} | {% block site_title %}{{ config.ADMINLTE_SITE_TITLE }}{% endblock site_title %}{% endblock title %}</title>
   {% block styles %}
     <link type="image/x-icon" rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
