@@ -1,16 +1,15 @@
 from typing import NamedTuple
 
 from adminlte_base import AdminLTE as Base
+from adminlte_base.filters import format_date_for_human
 from adminlte_base.constants import ALERTS
 from django import template
 from django.urls import reverse
 
+from .. import navbar
 from ..context_processors import config
 from ..menu import Menu, MenuItem
-from ..messages import MessagesList
 from ..models import MenuModel
-from ..notifications import NotificationList
-from ..tasks import TaskList
 from ..utils import Html
 
 
@@ -41,6 +40,11 @@ def gravatar(email, size=200):
     return Html.gravatar_url(email, size)
 
 
+@register.filter
+def human_date(dt):
+    return format_date_for_human(dt)
+
+
 @register.inclusion_tag(
     name='adminlte.render_flash_messages',
     filename='adminlte_full/markup/flash_messages.html',
@@ -51,14 +55,20 @@ def render_flash_messages(context):
 
 
 @register.inclusion_tag(
-    name='adminlte.render_user_panel',
-    filename='adminlte_full/markup/user_panel.html',
+    name='adminlte.render_user',
+    filename='adminlte_full/markup/user_sidebar_panel.html',
     takes_context=True
 )
-def render_user_panel(context):
+@register.inclusion_tag(
+    name='adminlte.render_legacy_user_menu',
+    filename='adminlte_full/markup/legacy_user_menu.html',
+    takes_context=True
+)
+def render_user(context):
     user = context['user']
     profile_endpoint = config['ADMINLTE_PROFILE_ENDPOINT']
     return {
+        'config': config,
         'user': user,
         'profile_url': reverse(profile_endpoint, args=(user.id,)),
     }
@@ -99,42 +109,45 @@ def render_menu(context, program_name):
 #     return {}
 
 
-@register.inclusion_tag('adminlte_full/navbar/messages.html')
-def show_messages():
-    sender = MessagesList()
-    result = sender.show_signal.send(sender)
-
-    if len(result):
-        return {
-            'messages': sender.messages,
-            'total': sender.total,
-        }
-
-
-@register.inclusion_tag('adminlte_full/navbar/notifications.html')
-def show_notifications():
-    sender = NotificationList()
-    result = sender.show_signal.send(sender)
-
-    if len(result):
-        return {
-            'notifications': sender.notifications,
-            'total': sender.total,
-        }
+@register.inclusion_tag(
+    name='adminlte.render_messages',
+    filename='adminlte_full/markup/messages_menu.html',
+    takes_context=True
+)
+def render_messages(context, messages):
+    sender = navbar.MessageDropdown(context)
+    sender.show_signal.send(sender)
+    return {
+        'messages': sender,
+    }
 
 
-@register.inclusion_tag('adminlte_full/sidebar/search-form.html')
-def show_search_form():
-    return {}
+@register.inclusion_tag(
+    name='adminlte.render_notifications',
+    filename='adminlte_full/markup/notifications_menu.html',
+    takes_context=True
+)
+def show_notifications(context, notifications):
+    sender = navbar.NotificationDropdown(context)
+    sender.show_signal.send(sender)
+    return {
+        'notifications': sender,
+    }
 
 
-@register.inclusion_tag('adminlte_full/navbar/tasks.html')
-def show_tasks():
-    sender = TaskList()
-    result = sender.show_signal.send(sender)
+@register.inclusion_tag(
+    name='adminlte.render_tasks',
+    filename='adminlte_full/markup/tasks_menu.html',
+    takes_context=True
+)
+def show_tasks(context, tasks):
+    sender = navbar.TaskDropdown(context)
+    sender.show_signal.send(sender)
+    return {
+        'tasks': sender,
+    }
 
-    if len(result):
-        return {
-            'tasks': sender.tasks,
-            'total': sender.total,
-        }
+
+# @register.inclusion_tag('adminlte_full/sidebar/search-form.html')
+# def show_search_form():
+#     return {}
