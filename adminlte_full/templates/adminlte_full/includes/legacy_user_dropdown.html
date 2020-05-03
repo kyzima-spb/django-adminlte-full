@@ -1,0 +1,10 @@
+{% load static adminlte_full %}
+<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+  <a class="dropdown-item" href="{{ profile_url }}">
+    <i class="fas fa-user mr-2"></i> Profile
+  </a>
+  <div class="dropdown-divider"></div>
+  <a class="dropdown-item" href="{% url config.ADMINLTE_LOGOUT_ENDPOINT %}">
+    <i class="fas fa-sign-out-alt mr-2"></i> Log out
+  </a>
+</div>

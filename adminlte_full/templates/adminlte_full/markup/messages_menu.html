@@ -1,0 +1,26 @@
+{% load static adminlte_full %}
+<li class="nav-item dropdown">
+  <a class="nav-link" data-toggle="dropdown" href="#">
+    <i class="far fa-comments"></i>
+    <span class="badge badge-danger navbar-badge">{{ messages.total }}</span>
+  </a>
+  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+    {% for m in messages %}
+      <a href="{{ m.url }}" class="dropdown-item">
+        <div class="media">
+          <img src="{{ m.sender.email | gravatar }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+          <div class="media-body">
+            <h3 class="dropdown-item-title">
+              {{ m.sender }}
+              <span class="float-right text-sm text-{{ m.color }}"><i class="{{ m.icon }}"></i></span>
+            </h3>
+            <p class="text-sm">{{ m.subject }}</p>
+            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ m.sent_at | human_date }}</p>
+          </div>
+        </div>
+      </a>
+      <div class="dropdown-divider"></div>
+    {% endfor %}
+    <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+  </div>
+</li>

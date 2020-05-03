@@ -1,0 +1,18 @@
+{% load static adminlte_full %}
+{% if user.is_authenticated %}
+  {% if config.ADMINLTE_LEGACY_USER_MENU %}
+    <li class="nav-item dropdown user-menu">
+      <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+        <img src="{{ user.email | gravatar }}" class="user-image img-circle elevation-2" alt="User Image">
+        <span class="d-none d-md-inline">{{ user }}</span>
+      </a>
+      {% include 'adminlte_full/includes/legacy_user_dropdown.html' %}
+    </li>
+  {% else %}
+    <li class="nav-item">
+      <a class="nav-link" href="{% url config.ADMINLTE_LOGOUT_ENDPOINT %}">
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
+    </li>
+  {% endif %}
+{% endif %}

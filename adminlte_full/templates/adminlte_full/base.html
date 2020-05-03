@@ -1,6 +1,7 @@
 {% extends "adminlte_full/skeleton.html" %}
 {% load static adminlte_full %}
 
+
 {% block styles %}
   {{ block.super }}
 {% endblock %}
@@ -28,6 +29,17 @@
         {% block search_form %}{% endblock search_form %}
         <ul class="navbar-nav ml-auto">
           {% block navbar_right %}{% endblock navbar_right %}
+          {% adminlte.render_messages messages %}
+          {% adminlte.render_notifications notifications %}
+          {% adminlte.render_tasks tasks %}
+          {% adminlte.render_legacy_user_menu  %}
+          {% comment %}
+          <li class="nav-item">
+            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+              <i class="fas fa-th-large"></i>
+            </a>
+          </li>
+          {% endcomment %}
         </ul>
       {% endblock navbar %}
     </nav>
@@ -45,10 +57,7 @@
 
       {% block sidebar %}
         <div class="sidebar">
-          {% block user_panel %}
-            {% adminlte.render_user_panel  %}
-          {% endblock user_panel %}
-
+          {% adminlte.render_user  %}
           <nav class="mt-2">
             {% block nav_sidebar %}{% endblock nav_sidebar %}
           </nav>
@@ -89,7 +98,9 @@
         <div class="float-right d-none d-sm-block">
           <b>Version</b> 3.0.4
         </div>
-        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io" target="_blank">AdminLTE.io</a>.</strong>
+        <strong>Ported <a href="http://github.com/kyzima-spb" target="_blank">Kirill Vercetti</a>.</strong>
+        All rights reserved.
       {% endblock main_footer %}
     </footer>
 
