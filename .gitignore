@@ -3,3 +3,4 @@
 env
 dist
 django_adminlte_full.egg-info
+example/mysite/settings.py
