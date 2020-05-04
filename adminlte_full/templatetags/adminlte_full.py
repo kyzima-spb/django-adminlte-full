@@ -1,4 +1,9 @@
+from hashlib import md5
 from typing import NamedTuple
+try:
+    from urllib import urlencode
+except ImportError:
+    from urllib.parse import urlencode
 
 from adminlte_base import AdminLTE as Base
 from adminlte_base.filters import format_date_for_human
@@ -10,7 +15,6 @@ from .. import navbar
 from ..context_processors import config
 from ..menu import Menu, MenuItem
 from ..models import MenuModel
-from ..utils import Html
 
 
 class Message(NamedTuple):
@@ -37,7 +41,12 @@ register = template.Library()
 
 @register.filter
 def gravatar(email, size=200):
-    return Html.gravatar_url(email, size)
+    return 'https://www.gravatar.com/avatar/{}?{}'.format(
+        md5(email.lower().encode('utf-8')).hexdigest(),
+        urlencode({
+            's': str(size)
+        })
+    )
 
 
 @register.filter
