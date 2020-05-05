@@ -5,15 +5,14 @@ try:
 except ImportError:
     from urllib.parse import urlencode
 
-from adminlte_base import AdminLTE as Base
+from adminlte_base import AbstractManager, ALERTS
 from adminlte_base.filters import format_date_for_human
-from adminlte_base.constants import ALERTS
 from django import template
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from .. import navbar
+from .. import signals
 from ..context_processors import config
-from ..menu import Menu, MenuItem
 from ..models import MenuModel
 
 
@@ -30,13 +29,21 @@ def prepare_message(message):
     return Message(message.level_tag, message.message, level, icon, message.extra_tags)
 
 
-class AdminLTE(Base):
+class Manager(AbstractManager):
+    def create_url(self, endpoint, endpoint_args=None, endpoint_kwargs=None):
+        return reverse_lazy(endpoint, args=endpoint_args, kwargs=endpoint_kwargs)
+
     def static(self, filename):
         pass
 
 
-adminlte = AdminLTE()
 register = template.Library()
+adminlte = Manager()
+
+
+@adminlte.menu_loader
+def load_menu(program_name):
+    return MenuModel.objects.get(program_name=program_name)
 
 
 @register.filter
@@ -84,29 +91,18 @@ def render_user(context):
 
 
 @register.inclusion_tag(
+    name='adminlte.render_sidebar_menu',
     filename='adminlte_full/markup/sidebar_menu.html',
     takes_context=True
 )
+@register.inclusion_tag(
+    name='adminlte.render_navbar_menu',
+    filename='adminlte_full/markup/navbar_menu.html',
+    takes_context=True
+)
 def render_menu(context, program_name):
-    data = MenuModel.objects.get(program_name=program_name)
-    menu = Menu()
-
-    for i in data.items:
-        menu.add_item(MenuItem(
-            id_item=i.id,
-            title=i.title,
-            endpoint=i.endpoint,
-            endpoint_args=i.get_endpoint_args(),
-            endpoint_kwargs=i.get_endpoint_kwargs(),
-            parent=menu.get_item(i.parent and i.parent.id),
-            item_type=i.type,
-            icon=i.icon,
-            help=i.help
-        ))
-
-    menu.activate_by_context(context)
-    menu.show_signal.send(menu, context=context)
-
+    menu = adminlte.get_menu(program_name, context['request'].path)
+    signals.menu_show_signal.send(menu, context=context)
     return {
         'menu': menu,
         'items': menu

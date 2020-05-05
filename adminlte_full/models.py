@@ -1,11 +1,12 @@
 """
 Add icons to the links using the .nav-icon class with font-awesome or any other icon font library
 """
+from adminlte_base import MenuItemmixin, MenuMixin
 from adminlte_base.menu import MenuItem
 from django.db import models
 
 
-class MenuItemModel(models.Model):
+class MenuItemModel(models.Model, MenuItemmixin):
     TYPES = (
         (MenuItem.TYPE_LINK, MenuItem.TYPE_LINK.title()),
         (MenuItem.TYPE_HEADER, MenuItem.TYPE_HEADER.title()),
@@ -17,7 +18,7 @@ class MenuItemModel(models.Model):
     type = models.CharField(
         max_length=20, default=MenuItem.TYPE_LINK, choices=TYPES
     )
-    # url = models.URLField()
+    url = models.URLField(max_length=500, blank=True)
     endpoint = models.CharField(max_length=255)
     endpoint_args = models.TextField(blank=True)
     endpoint_kwargs = models.TextField(blank=True)
@@ -38,7 +39,7 @@ class MenuItemModel(models.Model):
         return dict(p.split('=') for p in self.endpoint_kwargs.splitlines())
 
 
-class MenuModel(models.Model):
+class MenuModel(models.Model, MenuMixin):
     title = models.CharField(max_length=500)
     program_name = models.CharField(max_length=255, unique=True)
 
