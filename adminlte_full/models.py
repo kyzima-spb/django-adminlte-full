@@ -10,6 +10,7 @@ class MenuItemModel(models.Model, MenuItemmixin):
     TYPES = (
         (MenuItem.TYPE_LINK, MenuItem.TYPE_LINK.title()),
         (MenuItem.TYPE_HEADER, MenuItem.TYPE_HEADER.title()),
+        (MenuItem.TYPE_DROPDOWN_DIVIDER, MenuItem.TYPE_DROPDOWN_DIVIDER.title()),
     )
     menu = models.ForeignKey('MenuModel', on_delete=models.PROTECT)
     parent = models.ForeignKey(
@@ -23,20 +24,12 @@ class MenuItemModel(models.Model, MenuItemmixin):
     endpoint_args = models.TextField(blank=True)
     endpoint_kwargs = models.TextField(blank=True)
     title = models.CharField(max_length=500)
-    icon = models.CharField(
-        max_length=50, default='far fa-circle', blank=True
-    )
+    icon = models.CharField(max_length=50, blank=True)
     help = models.CharField(max_length=500, blank=True)
     pos = models.IntegerField(default=0, blank=True)
 
     def __str__(self):
         return f'{self.menu.title} - {self.title}'
-
-    def get_endpoint_args(self):
-        return self.endpoint_args.split()
-
-    def get_endpoint_kwargs(self):
-        return dict(p.split('=') for p in self.endpoint_kwargs.splitlines())
 
 
 class MenuModel(models.Model, MenuMixin):

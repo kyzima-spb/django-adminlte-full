@@ -1,14 +1,19 @@
+{% load static adminlte_full %}
 <a id="menu_item_{{ item.id }}" class="{% if is_submenu %}dropdown-item{% else %}nav-link{% endif %} dropdown-toggle" href="{{ item.url }}" title="{{ item.help }}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="button">
   {{ item.title }}
 </a>
 <ul aria-labelledby="menu_item_{{ item.id }}" class="dropdown-menu border-0 shadow">
   {% for child in item.children %}
-    <li class="{% if child.has_children %}dropdown-submenu dropdown-hover{% endif %}">
-      {% if child.has_children %}
-        {% include 'adminlte_full/markup/navbar_dropdown.html' with item=child is_submenu=1 %}
-      {% else %}
-        <a class="dropdown-item" href="{{ child.url }}" title="{{ child.help }}">{{ child.title }}</a>
-      {% endif %}
-    </li>
+    {% if child.type == child.TYPE_LINK %}
+      <li class="{% if child.has_children %}dropdown-submenu dropdown-hover{% endif %}">
+        {% if child.has_children %}
+          {% include 'adminlte_full/markup/navbar_dropdown.html' with item=child is_submenu=1 %}
+        {% else %}
+          <a class="dropdown-item" href="{{ child.url }}" title="{{ child.help }}">{{ child.title }}</a>
+        {% endif %}
+      </li>
+    {% elif child.type == child.TYPE_DROPDOWN_DIVIDER %}
+      <li class="dropdown-divider"></li>
+    {% endif %}
   {% endfor %}
 </ul>

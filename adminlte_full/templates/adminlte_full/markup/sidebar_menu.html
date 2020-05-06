@@ -1,15 +1,14 @@
+{% load static adminlte_full %}
 {% if not is_submenu %}
   <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 {% endif %}
 {% for item in items %}
-  {% if item.type == 'header' %}
+  {% if item.type == item.TYPE_HEADER %}
     <li class="nav-header">{{ item.title }}</li>
-  {% else %}
+  {% elif item.type == item.TYPE_LINK %}
     <li class="nav-item{% if item.has_children %} has-treeview{% endif %}">
       <a class="nav-link{% if item.is_active %} active{% endif %}" href="{{ item.url }}" title="{{ item.help }}">
-        {% if item.icon %}
-          <i class="nav-icon {{ item.icon }}"></i>
-        {% endif %}
+        <i class="nav-icon {% if item.icon %}{{ item.icon }}{% else %}far fa-circle{% endif %}"></i>
         <p>
           {{ item.title }}
           {% if item.has_children %}
