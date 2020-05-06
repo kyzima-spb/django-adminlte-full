@@ -6,7 +6,7 @@ except ImportError:
     from urllib.parse import urlencode
 
 from adminlte_base import AbstractManager, ALERTS
-from adminlte_base.filters import format_date_for_human
+from adminlte_base import filters
 from django import template
 from django.urls import reverse, reverse_lazy
 
@@ -57,8 +57,12 @@ def gravatar(email, size=200):
 
 
 @register.filter
-def human_date(dt):
-    return format_date_for_human(dt)
+def humanize(dt):
+    locale = config.get(
+        'LOCALE_NAME', config.get('LANGUAGE_CODE').replace('-', '_')
+    )
+    time_zone = config.get('TIME_ZONE', None)
+    return filters.humanize(dt, locale, time_zone)
 
 
 @register.inclusion_tag(
