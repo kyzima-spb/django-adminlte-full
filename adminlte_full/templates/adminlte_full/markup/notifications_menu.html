@@ -10,7 +10,7 @@
     {% for notice in notifications %}
       <a href="{{ notice.url }}" class="dropdown-item">
         <i class="{{ notice.icon }} mr-2 text-{{ notice.color }}"></i> {{ notice.text }}
-        <span class="float-right text-muted text-sm">{{ notice.sent_at | human_date }}</span>
+        <span class="float-right text-muted text-sm">{{ notice.sent_at | humanize }}</span>
       </a>
       <div class="dropdown-divider"></div>
     {% endfor %}

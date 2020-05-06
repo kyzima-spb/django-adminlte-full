@@ -15,7 +15,7 @@
               <span class="float-right text-sm text-{{ m.color }}"><i class="{{ m.icon }}"></i></span>
             </h3>
             <p class="text-sm">{{ m.subject }}</p>
-            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ m.sent_at | human_date }}</p>
+            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ m.sent_at | humanize }}</p>
           </div>
         </div>
       </a>
