@@ -17,22 +17,23 @@
             <li class="nav-item">
               <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
-            {% block navbar_left_links %}
-              {% comment %}
-                <li class="nav-item d-none d-sm-inline-block">
-                  <a href="#" class="nav-link"></a>
-                </li>
-              {% endcomment %}
-            {% endblock navbar_left_links %}
+            {% block navbar_left_links %}{% endblock navbar_left_links %}
           {% endblock navbar_left %}
         </ul>
         {% block search_form %}{% endblock search_form %}
         <ul class="navbar-nav ml-auto">
           {% block navbar_right %}{% endblock navbar_right %}
-          {% adminlte.render_messages messages %}
-          {% adminlte.render_notifications notifications %}
-          {% adminlte.render_tasks tasks %}
-          {% adminlte.render_legacy_user_menu  %}
+          {% if config.ADMINLTE_MESSAGES_ENABLED %}
+            {% adminlte.render_messages %}
+          {% endif %}
+          {% if config.ADMINLTE_NOTIFICATIONS_ENABLED %}
+            {% adminlte.render_notifications %}
+          {% endif %}
+          {% if config.ADMINLTE_TASKS_ENABLED %}
+            {% adminlte.render_tasks %}
+          {% endif %}
+          {% adminlte.render_legacy_user_menu %}
+
           {% comment %}
           <li class="nav-item">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
@@ -57,7 +58,7 @@
 
       {% block sidebar %}
         <div class="sidebar">
-          {% adminlte.render_user  %}
+          {% adminlte.render_user %}
           <nav class="mt-2">
             {% block nav_sidebar %}{% endblock nav_sidebar %}
           </nav>
@@ -87,7 +88,7 @@
           </div>
         </section>
         <section class="content">
-          {% adminlte.render_flash_messages  %}
+          {% adminlte.render_flash_messages %}
           {% block page_content %}{% endblock %}
         </section>
       {% endblock content_wrapper %}

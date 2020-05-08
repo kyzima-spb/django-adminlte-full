@@ -2,9 +2,11 @@
 <li class="nav-item dropdown">
   <a class="nav-link" data-toggle="dropdown" href="#">
     <i class="far fa-flag"></i>
-    <span class="badge badge-success navbar-badge">{{ tasks.total }}</span>
+    <span class="badge badge-success navbar-badge">{{ tasks.get_total }}</span>
   </a>
   <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+    <span class="dropdown-item dropdown-header">{{ tasks.get_total }} Tasks</span>
+    <div class="dropdown-divider"></div>
     {% for task in tasks %}
       <a href="{{ task.url }}" class="dropdown-item">
         <div class="progress-group">
@@ -17,6 +19,6 @@
       </a>
       <div class="dropdown-divider"></div>
     {% endfor %}
-    <a href="#" class="dropdown-item dropdown-footer">View all tasks</a>
+    <a href="{{ tasks.get_url }}" class="dropdown-item dropdown-footer">See all tasks</a>
   </div>
 </li>
