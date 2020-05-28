@@ -1,4 +1,4 @@
-{% load static adminlte_full %}
+{% load adminlte_full %}
 <li class="nav-item dropdown">
   <a class="nav-link" data-toggle="dropdown" href="#">
     <i class="far fa-comments"></i>
@@ -10,14 +10,14 @@
     {% for m in messages %}
       <a href="{{ m.url }}" class="dropdown-item">
         <div class="media">
-          <img src="{{ m.sender.email | gravatar }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+          <img src="{{ m.sender.email|gravatar }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
           <div class="media-body">
             <h3 class="dropdown-item-title">
               {{ m.sender }}
               <span class="float-right text-sm text-{{ m.color }}"><i class="{{ m.icon }}"></i></span>
             </h3>
             <p class="text-sm">{{ m.subject }}</p>
-            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ m.sent_at | humanize }}</p>
+            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> {{ m.sent_at|humanize }}</p>
           </div>
         </div>
       </a>
