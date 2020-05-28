@@ -1,0 +1,23 @@
+{% extends "adminlte_full/base.html" %}
+
+
+{% block navbar_top %}
+  <div class="container">
+    {% with class_attr='navbar-brand' %}
+      {% include 'adminlte_full/includes/brand_logo.html' %}
+    {% endwith %}
+    {{ block.super }}
+  </div>
+{% endblock navbar_top %}
+
+{% block content_header %}
+  <div class="container">
+    <div class="row">{{ block.super }}</div>
+  </div>
+{% endblock content_header %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">{{ block.super }}</div>
+  </div>
+{% endblock content %}

@@ -1,21 +1,22 @@
-{% load static adminlte_full %}{% block document %}
+{% load static %}
+{% block document %}
 <!DOCTYPE html>
-<html{% block html_attributes %} lang="en"{% endblock %}>
+<html{% block html_attributes %} lang="en"{% endblock html_attributes %}>
 <head>
 {% block head %}
   {% block meta %}
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="description" content="{% block meta_description %}{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+    <meta name="description" content="{% block meta_description %}{% endblock meta_description %}">
+    <meta name="keywords" content="{% block meta_keywords %}{% endblock meta_keywords %}">
   {% endblock meta %}
   <title>{% block title %}{% block page_title %}{% endblock page_title %} | {% block site_title %}{{ config.ADMINLTE_SITE_TITLE }}{% endblock site_title %}{% endblock title %}</title>
   {% block styles %}
     <link type="image/x-icon" rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   {% endblock styles %}
   {% block styles_inline %}{% endblock styles_inline %}
@@ -23,16 +24,16 @@
 {% endblock head %}
 </head>
 
-<body{% block body_attributes %}{% endblock %}>
+<body{% block body_attributes %}{% endblock body_attributes %}>
 {% block body %}
-  {% block main %}{% endblock %}
+  {% block main %}{% endblock main %}
   {% block javascript %}
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
-  {% endblock %}
-  {% block javascript_inline %}{% endblock %}
-{% endblock %}
+  {% endblock javascript %}
+  {% block javascript_inline %}{% endblock javascript_inline %}
+{% endblock body %}
 </body>
 </html>
-{% endblock %}
+{% endblock document %}

@@ -1,14 +1,14 @@
 {% extends "adminlte_full/skeleton.html" %}
 {% load static adminlte_full %}
 
-{% block page_title %}Log in{% endblock %}
+{% block page_title %}Log in{% endblock page_title %}
 
-{% block body_attributes %} class="hold-transition login-page"{% endblock %}
+{% block body_attributes %} class="hold-transition login-page"{% endblock body_attributes %}
 
 {% block styles %}
   {{ block.super }}
   <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
-{% endblock %}
+{% endblock styles %}
 
 {% block body %}
 <div class="login-box">
@@ -20,7 +20,7 @@
 
   <div class="card">
     <div class="card-body login-card-body">
-      {% adminlte.render_flash_messages  %}
+      {% adminlte.render_flash_messages %}
       {% block login_message %}
         <p class="login-box-msg">Sign in to start your session</p>
       {% endblock login_message %}
@@ -29,7 +29,7 @@
 
       <div class="social-auth-links text-center mb-3">
         {% block social_auth %}
-          {% comment %} <p>- OR -</p> {% endcomment %}
+          
         {% endblock social_auth %}
       </div>
 
@@ -44,8 +44,8 @@
             <a href="{{ config.ADMINLTE_REGISTRATION_ENDPOINT }}" class="text-center">Register a new membership</a>
           </p>
         {% endif %}
-      {% endblock %}
+      {% endblock custom_links %}
     </div>
   </div>
 </div>
-{% endblock %}
+{% endblock body %}

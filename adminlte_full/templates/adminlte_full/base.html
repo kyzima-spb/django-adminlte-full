@@ -1,95 +1,91 @@
 {% extends "adminlte_full/skeleton.html" %}
-{% load static adminlte_full %}
+{% load adminlte_full %}
 
 
-{% block styles %}
-  {{ block.super }}
-{% endblock %}
-
-{% block body_attributes %} class="hold-transition sidebar-mini"{% endblock %}
+{% block body_attributes %} class="hold-transition {{ config.ADMINLTE_LAYOUT }}"{% endblock body_attributes %}
 
 {% block main %}
   <div class="wrapper">
-    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-      {% block navbar %}
-        <ul class="navbar-nav">
-          {% block navbar_left %}
-            <li class="nav-item">
-              <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-            {% block navbar_left_links %}{% endblock navbar_left_links %}
-          {% endblock navbar_left %}
-        </ul>
-        {% block search_form %}{% endblock search_form %}
-        <ul class="navbar-nav ml-auto">
-          {% block navbar_right %}{% endblock navbar_right %}
-          {% if config.ADMINLTE_MESSAGES_ENABLED %}
-            {% adminlte.render_messages %}
-          {% endif %}
-          {% if config.ADMINLTE_NOTIFICATIONS_ENABLED %}
-            {% adminlte.render_notifications %}
-          {% endif %}
-          {% if config.ADMINLTE_TASKS_ENABLED %}
-            {% adminlte.render_tasks %}
-          {% endif %}
-          {% adminlte.render_legacy_user_menu %}
+    <nav class="main-header navbar navbar-expand-md navbar-white navbar-light">
+      {% block navbar_top %}
+        {% if config.ADMINLTE_SIDEBAR_ENABLED %}
+          <div class="navbar-nav navbar-no-expand order-1">
+            <a class="nav-item nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+          </div>
+        {% endif %}
 
-          {% comment %}
-          <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-              <i class="fas fa-th-large"></i>
+        <div class="collapse navbar-collapse order-3" id="navbarCollapse">
+          <div class="order-2">
+            {% block search_form %}{% endblock search_form %}
+          </div>
+          <ul class="navbar-nav order-1">
+            {% block navbar_left %}{% endblock navbar_left %}
+          </ul>
+        </div>
+
+        <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+          {% block navbar_right %}
+            {% if config.ADMINLTE_MESSAGES_ENABLED %}
+              {% adminlte.render_messages %}
+            {% endif %}
+            {% if config.ADMINLTE_NOTIFICATIONS_ENABLED %}
+              {% adminlte.render_notifications %}
+            {% endif %}
+            {% if config.ADMINLTE_TASKS_ENABLED %}
+              {% adminlte.render_tasks %}
+            {% endif %}
+          {% endblock navbar_right %}
+          {% adminlte.render_legacy_user_menu %}
+          <li class="nav-item d-sm-none">
+            <a class="nav-link" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" href="#" role="button">
+              <i class="fas fa-caret-down"></i>
             </a>
           </li>
-          {% endcomment %}
+          
         </ul>
-      {% endblock navbar %}
+      {% endblock navbar_top %}
     </nav>
-
-    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-      {% block brand_logo %}
-        <a href="/" class="brand-link">
-          <img src="{% static '/dist/img/AdminLTELogo.png' %}"
-               alt="{{ config.ADMINLTE_BRAND_IMAGE_ALT }}"
-               class="brand-image img-circle elevation-3"
-               style="opacity: .8">
-          <span class="brand-text font-weight-light">{{ config.ADMINLTE_BRAND_TEXT }}</span>
-        </a>
-      {% endblock brand_logo %}
-
-      {% block sidebar %}
+    {% if config.ADMINLTE_SIDEBAR_ENABLED %}
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        {% with class_attr='brand-link' %}
+          {% include 'adminlte_full/includes/brand_logo.html' %}
+        {% endwith %}
         <div class="sidebar">
-          {% adminlte.render_user %}
-          <nav class="mt-2">
-            {% block nav_sidebar %}{% endblock nav_sidebar %}
-          </nav>
+          {% block sidebar %}
+            {% adminlte.render_user %}
+            <nav class="mt-2">
+              {% block sidebar_nav %}{% endblock sidebar_nav %}
+            </nav>
+          {% endblock sidebar %}
         </div>
-      {% endblock sidebar %}
-    </aside>
+      </aside>
+    {% endif %}
 
     <div class="content-wrapper">
       {% block content_wrapper %}
         <section class="content-header">
-          <div class="container-fluid">
-            <div class="row mb-2">
-              <div class="col-sm-6">
-                <h1>{% block page_title %}Blank Page{% endblock %}</h1>
-              </div>
-              <div class="col-sm-6">
-                {% block breadcrumb %}
-                  {% comment %}
-                    <ol class="breadcrumb float-sm-right">
-                      <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item active">Blank Page</li>
-                    </ol>
-                  {% endcomment %}
-                {% endblock breadcrumb %}
+          {% block content_header %}
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1>{% block page_title %}Blank Page{% endblock page_title %}</h1>
+                </div>
+                <div class="col-sm-6">
+                  {% block breadcrumb %}
+                    
+                  {% endblock breadcrumb %}
+                </div>
               </div>
             </div>
-          </div>
+          {% endblock content_header %}
         </section>
         <section class="content">
-          {% adminlte.render_flash_messages %}
-          {% block page_content %}{% endblock %}
+          {% block content %}
+            <div class="container-fluid">
+              {% adminlte.render_flash_messages %}
+              {% block page_content %}{% endblock page_content %}
+            </div>
+          {% endblock content %}
         </section>
       {% endblock content_wrapper %}
     </div>
