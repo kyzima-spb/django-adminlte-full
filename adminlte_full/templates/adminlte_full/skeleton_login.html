@@ -1,5 +1,5 @@
 {% extends "adminlte_full/skeleton.html" %}
-{% load static adminlte_full %}
+{% load adminlte_full static %}
 
 {% block page_title %}Log in{% endblock page_title %}
 
@@ -7,7 +7,7 @@
 
 {% block styles %}
   {{ block.super }}
-  <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'adminlte_full/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
 {% endblock styles %}
 
 {% block body %}
