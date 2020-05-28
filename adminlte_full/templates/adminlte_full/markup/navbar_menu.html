@@ -1,7 +1,6 @@
-{% load static adminlte_full %}
 {% for item in items %}
   {% if item.type == item.TYPE_LINK %}
-    <li class="nav-item d-none d-sm-inline-block{% if item.is_active %} active{% endif %}{% if item.has_children %} dropdown{% endif %}">
+    <li class="nav-item {% if item.is_active %} active{% endif %}{% if item.has_children %} dropdown{% endif %}">
       {% if item.has_children %}
         {% include 'adminlte_full/markup/navbar_dropdown.html' with item=item %}
       {% else %}
