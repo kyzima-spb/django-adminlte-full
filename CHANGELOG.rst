@@ -2,6 +2,7 @@
 =====
 
 - Upgrading to Bootstrap 4 and AdminLTE 3.
+- Added pages for 400, 403, 404 and 500 errors.
 - Signals are renamed, moved to the `signals.py` module and no longer have a class binding:
 
   - `menu_loaded(menu, program_name, context)` - triggered when the application menu was created.

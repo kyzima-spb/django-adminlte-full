@@ -1,0 +1,24 @@
+{% extends "adminlte_full/base.html" %}
+
+{% block page_title %}{{ status_message }}{% endblock page_title %}
+
+{% block page_content %}
+  <div class="error-page">
+    <h2 class="headline text-yellow">{{ status_code }}</h2>
+    <div class="error-content">
+      <h3><i class="fa fa-warning text-yellow"></i> Oops! {{ status_message }}</h3>
+      <p>{{ details|safe }}</p>
+      {% if config.ADMINLTE_SEARCH_ENABLED %}
+        <form class="search-form" action="{% url config.ADMINLTE_SEARCH_ENDPOINT %}" method="post">
+          <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Search">
+            <div class="input-group-btn">
+                <button type="submit" name="submit" class="btn btn-warning"><i class="fas fa-search"></i>
+                </button>
+            </div>
+          </div>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock page_content %}
