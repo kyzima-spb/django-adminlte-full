@@ -1,0 +1,29 @@
+{% extends "adminlte_full/base.html" %}
+
+{% block page_title %}{{ status_message|default:'Internal Server Error' }}{% endblock page_title %}
+
+{% block page_content %}
+  <div class="error-page">
+    <h2 class="headline text-{% if status_code < 500 %}yellow{% else %}danger{% endif %}"> {{ status_code|default:500 }}</h2>
+
+    <div class="error-content">
+      <h3>
+        <i class="fas fa-exclamation-triangle text-{% if status_code < 500 %}yellow{% else %}danger{% endif %}"></i>
+        Oops! {{ status_message|default:'Something went wrong.' }}
+      </h3>
+      <p>{{ details|default:'We will work on fixing that right away.'|safe }}</p>
+      {% if config.ADMINLTE_SEARCH_ENABLED %}
+        <form class="search-form" action="{% url config.ADMINLTE_SEARCH_ENDPOINT %}" method="get">
+          <div class="input-group">
+            <input type="search" name="q" class="form-control" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+              <button type="submit" name="submit" class="btn btn-{% if status_code < 500 %}warning{% else %}danger{% endif %}">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock page_content %}

@@ -11,7 +11,7 @@ from .context_processors import config
 
 
 def error_page(request, code, message, details):
-    template = f'adminlte_full/error_{code // 100}xx.html'
+    template = f'adminlte_full/http_error_page.html'
     context = {
         'status_code': code, 'status_message': message, 'details': details,
     }
