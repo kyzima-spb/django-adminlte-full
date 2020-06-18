@@ -15,11 +15,13 @@
   {% block styles %}
     <link type="image/x-icon" rel="shortcut icon" href="{% static 'adminlte_full/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'adminlte_full/plugins/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'adminlte_full/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'adminlte_full/dist/css/adminlte.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css">
   {% endblock styles %}
-  {% block styles_inline %}{% endblock styles_inline %}
+  <style>{% block styles_inline %}{% endblock styles_inline %}</style>
   {% block javascript_head %}{% endblock javascript_head %}
 {% endblock head %}
 </head>
@@ -32,7 +34,7 @@
     <script src="{% static 'adminlte_full/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'adminlte_full/dist/js/adminlte.min.js' %}"></script>
   {% endblock javascript %}
-  {% block javascript_inline %}{% endblock javascript_inline %}
+  <script>{% block javascript_inline %}{% endblock javascript_inline %}</script>
 {% endblock body %}
 </body>
 </html>

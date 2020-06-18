@@ -1,50 +1,27 @@
 {% extends "adminlte_full/skeleton.html" %}
-{% load adminlte_full static %}
+{% load adminlte_full %}
 
-{% block page_title %}Log in{% endblock page_title %}
 
 {% block body_attributes %} class="hold-transition login-page"{% endblock body_attributes %}
-
-{% block styles %}
-  {{ block.super }}
-  <link rel="stylesheet" href="{% static 'adminlte_full/plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
-{% endblock styles %}
 
 {% block body %}
 <div class="login-box">
   <div class="login-logo">
     {% block logo %}
-      <a href="#"><b>Admin</b>LTE</a>
+      {% if logo_url %}
+        <a href="{{ logo_url }}">{{ config.ADMINLTE_BRAND_HTML|safe }}</a>
+      {% else %}
+        <div>{{ config.ADMINLTE_BRAND_HTML|safe }}</div>
+      {% endif %}
     {% endblock logo %}
   </div>
 
   <div class="card">
     <div class="card-body login-card-body">
       {% adminlte.render_flash_messages %}
-      {% block login_message %}
-        <p class="login-box-msg">Sign in to start your session</p>
-      {% endblock login_message %}
-
-      {% block login_form %}{% endblock login_form %}
-
-      <div class="social-auth-links text-center mb-3">
-        {% block social_auth %}
-          
-        {% endblock social_auth %}
-      </div>
-
-      {% block custom_links %}
-        {% if config.ADMINLTE_PASSWORD_RESET %}
-          <p class="mb-1">
-            <a href="{{ config.ADMINLTE_PASSWORD_RESET_ENDPOINT }}">I forgot my password</a>
-          </p>
-        {% endif %}
-        {% if config.ADMINLTE_ALLOW_REGISTRATION %}
-          <p class="mb-0">
-            <a href="{{ config.ADMINLTE_REGISTRATION_ENDPOINT }}" class="text-center">Register a new membership</a>
-          </p>
-        {% endif %}
-      {% endblock custom_links %}
+      {% block messages %}{% endblock messages %}
+      {% block page_content %}{% endblock page_content %}
+      {% block custom_links %}{% endblock custom_links %}
     </div>
   </div>
 </div>

@@ -1,66 +1,63 @@
 {% extends "adminlte_full/skeleton_login.html" %}
-{% load bootstrap4 i18n adminlte_full %}
+{% load crispy_forms_tags i18n %}
 
-{% block login_message %}
-  {% if form.errors and not form.non_field_errors %}
+
+{% block page_title %}{% trans 'Login' %}{% endblock page_title %}
+
+{% block messages %}
+  {% if adminlte_user.is_authenticated %}
     <p class="login-box-msg">
-      {% if form.errors.items|length == 1 %}
-        {% trans "Please correct the error below." %}
-      {% else %}
-        {% trans "Please correct the errors below." %}
-      {% endif %}
-    </p>
-  {% endif %}
-
-  {% if form.non_field_errors %}
-    {% for error in form.non_field_errors %}
-      <p class="login-box-msg">{{ error }}</p>
-    {% endfor %}
-  {% endif %}
-
-  {% if user.is_authenticated %}
-    <p class="login-box-msg">
-      {% blocktrans trimmed %}
-        You are authenticated as {{ user }}, but are not authorized to
-        access this page. Would you like to login to a different account?
-      {% endblocktrans %}
+      You are authenticated as {{ adminlte_user.get_full_name }}, but are not authorized to access this page.
+      Would you like to login to a different account?
     </p>
   {% else %}
-    {{ block.super }}
+    <p class="login-box-msg">{% trans 'Sign in to start your session' %}</p>
   {% endif %}
-{% endblock login_message %}
+{% endblock messages %}
 
-{% block login_form %}
-  <form action="{% url config.ADMINLTE_LOGIN_ENDPOINT %}" method="POST">
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{ next }}">
-    {% bootstrap_field form.username form_group_class="input-group mb-3" show_label="skip" addon_after='<span class="fas fa-envelope"></span>' %}
-    {% bootstrap_field form.password form_group_class="input-group mb-3" show_label="skip" addon_after='<span class="fas fa-lock"></span>' %}
-    <div class="row">
-      <div class="col-8">
-        {% if config.ADMINLTE_REMEMBER_ME %}
-          <div class="icheck-primary">
-            <input type="checkbox" id="remember">
-            <label for="remember">{% trans 'Remember Me' %}</label>
-          </div>
-        {% endif %}
+{% block page_content %}
+  {% block form %}
+    <form action="{% url config.ADMINLTE_LOGIN_ENDPOINT %}" method="post">
+      {% block form_fields %}
+        {% crispy form %}
+      {% endblock form_fields %}
+      <div class="row">
+        <div class="col-8">
+          {% if config.ADMINLTE_REMEMBER_ME %}
+            <div class="icheck-primary">
+              <input type="checkbox" name="remember_me" id="remember">
+              <label for="remember">{% trans 'Remember Me' %}</label>
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-4">
+          <button type="submit" class="btn btn-primary btn-block">{% trans 'Log in' %}</button>
+        </div>
       </div>
-      <div class="col-4">
-        <button type="submit" class="btn btn-primary btn-block">{% trans 'Log in' %}</button>
-      </div>
+    </form>
+  {% endblock form %}
+
+  {% if config.ADMINLTE_ALLOW_SOCIAL_AUTH %}
+    <div class="social-auth-links text-center mb-3">
+      <p>{% trans '- OR -' %}</p>
+      {% include 'includes/social_auth_links.html' %}
     </div>
-  </form>
-{% endblock login_form %}
+  {% endif %}
+{% endblock page_content %}
 
 {% block custom_links %}
-  {% if config.ADMINLTE_PASSWORD_RESET %}
-    <p class="mb-1">
-      <a href="{% url config.ADMINLTE_PASSWORD_RESET_ENDPOINT %}">{% trans 'Forgotten your password or username?' %}</a>
+  {% if config.ADMINLTE_ALLOW_PASSWORD_RESET %}
+    <p class="mt-1 mb-1">
+      <a href="{% url config.ADMINLTE_PASSWORD_RESET_ENDPOINT %}">
+        {% trans 'Forgotten your password or username?' %}
+      </a>
     </p>
   {% endif %}
   {% if config.ADMINLTE_ALLOW_REGISTRATION %}
-    <p class="mb-0">
-      <a href="{% url config.ADMINLTE_REGISTRATION_ENDPOINT %}" class="text-center">{% trans 'Register a new membership' %}</a>
+    <p class="mt-1 mb-0">
+      <a href="{% url config.ADMINLTE_REGISTRATION_ENDPOINT %}">
+        {% trans 'Register a new membership' %}
+      </a>
     </p>
   {% endif %}
-{% endblock %}
+{% endblock custom_links %}
