@@ -1,9 +1,13 @@
+{% load i18n %}
 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-  <a class="dropdown-item" href="{{ profile_url }}">
-    <i class="fas fa-user mr-2"></i> Profile
+  <a class="dropdown-item" href="{% url config.ADMINLTE_PROFILE_ENDPOINT %}">
+    <i class="fas fa-user mr-2"></i> {% trans 'Profile' %}
+  </a>
+  <a class="dropdown-item" href="{% url config.ADMINLTE_CHANGE_PASSWORD_ENDPOINT %}">
+    <i class="fas fa-lock mr-2"></i> {% trans 'Change my password' %}
   </a>
   <div class="dropdown-divider"></div>
   <a class="dropdown-item" href="{% url config.ADMINLTE_LOGOUT_ENDPOINT %}">
-    <i class="fas fa-sign-out-alt mr-2"></i> Log out
+    <i class="fas fa-sign-out-alt mr-2"></i> {% trans 'Log out' %}
   </a>
 </div>

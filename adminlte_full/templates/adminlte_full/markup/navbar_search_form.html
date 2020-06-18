@@ -1,0 +1,11 @@
+{% load i18n %}
+<form class="form-inline ml-0 ml-md-3" action="{% url config.ADMINLTE_SEARCH_ENDPOINT %}" method="get">
+  <div class="input-group input-group-sm">
+    <input name="q" type="search" class="form-control form-control-navbar" placeholder="{% trans 'Search' %}" aria-label="{% trans 'Search' %}">
+    <div class="input-group-append">
+      <button class="btn btn-navbar" type="submit">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+</form>

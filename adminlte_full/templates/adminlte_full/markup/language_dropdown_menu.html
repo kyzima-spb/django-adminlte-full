@@ -1,0 +1,14 @@
+<li class="nav-item dropdown">
+  <a class="nav-link" data-toggle="dropdown" href="#">
+    <i class="{{ current_locale|replace_with_flag }}"></i>
+  </a>
+  <div class="dropdown-menu dropdown-menu-right p-0">
+    {% for locale name in languages %}
+      <a href="{% url config.ADMINLTE_CHANGE_LANGUAGE_ENDPOINT locale=locale %}"
+         class="dropdown-item{% if locale == current_locale %} active{% endif %}"
+      >
+        <i class="{{ locale|replace_with_flag }} mr-2"></i> {{ name }}
+      </a>
+    {% endfor %}
+  </div>
+</li>
