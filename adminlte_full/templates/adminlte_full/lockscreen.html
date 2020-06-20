@@ -1,0 +1,57 @@
+{% extends "adminlte_full/skeleton.html" %}
+{% load adminlte_full i18n %}
+
+{% block page_title %}{% trans 'Lockscreen' %}{% endblock page_title %}
+
+{% block body_attributes %} class="hold-transition lockscreen"{% endblock body_attributes %}
+
+{% block main %}
+  <div class="lockscreen-wrapper">
+    <div class="lockscreen-logo">
+      <a href="/">{{ config.ADMINLTE_BRAND_HTML|safe }}</a>
+    </div>
+
+    {% if adminlte_user.is_anonymous %}
+      <div class="lockscreen-item" style="background: none">
+        <a href="{% url config.ADMINLTE_LOGIN_ENDPOINT %}" class="btn btn-block btn-primary">
+          {% trans 'Log in' %}
+        </a>
+        {% if config.ADMINLTE_ALLOW_REGISTRATION %}
+          <a href="{% url config.ADMINLTE_REGISTRATION_ENDPOINT %}" class="btn btn-block btn-danger">
+            {% trans 'Registration' %}
+          </a>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="lockscreen-name">{{ adminlte_user.get_full_name }}</div>
+
+      <div class="lockscreen-item">
+        <div class="lockscreen-image">
+          <img src="{{ adminlte_user.email|gravatar }}" alt="User Image">
+        </div>
+
+        <form class="lockscreen-credentials" method="post">
+          <div class="input-group">
+            <input class="form-control" type="password" name="password" placeholder="{% trans 'Password' %}">
+
+            <div class="input-group-append">
+              <button type="button" class="btn"><i class="fas fa-arrow-right text-muted"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="help-block text-center">
+        {% trans 'Enter your password to retrieve your session' %}
+      </div>
+      <div class="text-center">
+        <a href="{% url config.ADMINLTE_LOGIN_ENDPOINT %}">{% trans 'Or sign in as a different user' %}</a>
+      </div>
+    {% endif %}
+
+    <div class="lockscreen-footer text-center">
+      Copyright &copy; 2014-2020 <b><a href="http://adminlte.io" class="text-black">AdminLTE.io</a></b><br>
+      All rights reserved
+    </div>
+  </div>
+{% endblock main %}
