@@ -65,7 +65,7 @@
               {% adminlte.render_language_menu %}
             {% endif %}
           {% endblock navbar_right %}
-          {% if adminlte.user %}
+          {% if adminlte_user %}
             {% adminlte.render_legacy_user_menu %}
           {% endif %}
           <li class="nav-item d-sm-none">
@@ -92,8 +92,8 @@
         {% endwith %}
         <div class="sidebar">
           {% block sidebar %}
-            {% if adminlte.user %}
-              {% with user=adminlte.user %}
+            {% if adminlte_user %}
+              {% with user=adminlte_user %}
                 {% include 'adminlte_full/includes/user_sidebar_panel.html' %}
               {% endwith %}
             {% endif %}
