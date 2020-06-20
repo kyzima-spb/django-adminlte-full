@@ -1,4 +1,4 @@
-{% load adminlte_full %}
+{% load i18n adminlte_full %}
 <li class="nav-item dropdown">
   <a class="nav-link" data-toggle="dropdown" href="#">
     <i class="far fa-bell"></i>
@@ -14,6 +14,6 @@
       </a>
       <div class="dropdown-divider"></div>
     {% endfor %}
-    <a href="{{ notifications.get_url }}" class="dropdown-item dropdown-footer">See All Notifications</a>
+    <a href="{{ notifications.get_url }}" class="dropdown-item dropdown-footer">{% trans 'See All Notifications' %}</a>
   </div>
 </li>

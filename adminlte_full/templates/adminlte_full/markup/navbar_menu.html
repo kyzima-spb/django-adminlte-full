@@ -1,4 +1,4 @@
-{% for item in items %}
+{% for item in menu %}
   {% if item.type == item.TYPE_LINK %}
     <li class="nav-item {% if item.is_active %} active{% endif %}{% if item.has_children %} dropdown{% endif %}">
       {% if item.has_children %}

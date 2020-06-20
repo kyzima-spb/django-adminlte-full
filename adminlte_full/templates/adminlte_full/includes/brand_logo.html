@@ -1,9 +1,9 @@
 {% load adminlte_full static %}
-<a href="{{ adminlte.get_home_page.url }}" class="{{ class_attr }}
+<a href="{{ home_page.url }}" class="{{ class_attr }}
   {{ config.ADMINLTE_BRAND_COLOR|if_true|navbar_skin }}
   {{ config.ADMINLTE_BRAND_SMALL_TEXT|if_true:' text-sm' }}
 ">
-  <img src="{% static config.ADMINLTE_BRAND_IMAGE %}"
+  <img src="{% static 'adminlte_full/dist/img/AdminLTELogo.png' %}"
        alt="{{ config.ADMINLTE_BRAND_IMAGE_ALT }}"
        class="brand-image img-circle elevation-3"
        style="opacity: .8">

@@ -1,5 +1,5 @@
 from django.conf import settings
-from adminlte_base import DEFAULT_SETTINGS
+from adminlte_base import ThemeColor, ThemeLayout, DEFAULT_SETTINGS
 
 
 class ConfigWrapper(object):
@@ -16,4 +16,7 @@ config = ConfigWrapper()
 def adminlte(request):
     return {
         'config': config,
+        'ThemeColor': ThemeColor,
+        'ThemeLayout': ThemeLayout,
+        'adminlte_user': request.user,
     }

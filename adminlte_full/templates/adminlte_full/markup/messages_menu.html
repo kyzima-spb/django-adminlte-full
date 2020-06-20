@@ -1,4 +1,4 @@
-{% load adminlte_full %}
+{% load i18n adminlte_full %}
 <li class="nav-item dropdown">
   <a class="nav-link" data-toggle="dropdown" href="#">
     <i class="far fa-comments"></i>
@@ -13,7 +13,7 @@
           <img src="{{ m.sender.email|gravatar }}" alt="User Avatar" class="img-size-50 mr-3 img-circle">
           <div class="media-body">
             <h3 class="dropdown-item-title">
-              {{ m.sender }}
+              {{ m.sender.get_full_name }}
               <span class="float-right text-sm text-{{ m.color }}"><i class="{{ m.icon }}"></i></span>
             </h3>
             <p class="text-sm">{{ m.subject }}</p>
@@ -23,6 +23,6 @@
       </a>
       <div class="dropdown-divider"></div>
     {% endfor %}
-    <a href="{{ messages.get_url }}" class="dropdown-item dropdown-footer">See All Messages</a>
+    <a href="{{ messages.get_url }}" class="dropdown-item dropdown-footer">{% trans 'See All Messages' %}</a>
   </div>
 </li>

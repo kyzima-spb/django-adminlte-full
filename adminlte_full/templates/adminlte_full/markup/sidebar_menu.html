@@ -1,7 +1,14 @@
+{% load adminlte_full %}
 {% if not is_submenu %}
-  <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+  <ul data-widget="treeview" role="menu" data-accordion="false" class="nav nav-pills nav-sidebar flex-column
+    {{ config.ADMINLTE_SIDEBAR_CHILD_INDENT|if_true:' nav-child-indent' }}
+    {{ config.ADMINLTE_SIDEBAR_COMPACT|if_true:' nav-compact' }}
+    {{ config.ADMINLTE_SIDEBAR_FLAT_STYLE|if_true:' nav-flat' }}
+    {{ config.ADMINLTE_SIDEBAR_LEGACY_STYLE|if_true:' nav-legacy' }}
+    {{ config.ADMINLTE_SIDEBAR_SMALL_TEXT|if_true:' text-sm' }}
+  ">
 {% endif %}
-{% for item in items %}
+{% for item in menu %}
   {% if item.type == item.TYPE_HEADER %}
     <li class="nav-header">{{ item.title }}</li>
   {% elif item.type == item.TYPE_LINK %}
@@ -20,7 +27,7 @@
       </a>
       {% if item.has_children %}
         <ul class="nav nav-treeview">
-          {% include 'adminlte_full/markup/sidebar_menu.html' with items=item.children is_submenu=1 %}
+          {% include 'adminlte_full/markup/sidebar_menu.html' with menu=item.children is_submenu=1 %}
         </ul>
       {% endif %}
     </li>

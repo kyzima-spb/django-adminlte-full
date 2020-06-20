@@ -5,7 +5,9 @@
       <img src="{{ user.email|gravatar }}" class="img-circle elevation-2" alt="User Image">
     </div>
     <div class="info">
-      <a href="{{ profile_url }}" class="d-block">{{ user }}</a>
+      <a href="{% url config.ADMINLTE_PROFILE_ENDPOINT %}" class="d-block">
+        {{ user.get_full_name }}
+      </a>
     </div>
   </div>
 {% endif %}

@@ -1,10 +1,10 @@
-{% load adminlte_full %}
+{% load i18n adminlte_full %}
 {% if user.is_authenticated %}
   {% if config.ADMINLTE_LEGACY_USER_MENU %}
     <li class="nav-item dropdown user-menu">
       <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
         <img src="{{ user.email|gravatar }}" class="user-image img-circle elevation-2" alt="User Image">
-        <span class="d-none d-md-inline">{{ user }}</span>
+        <span class="d-none d-md-inline">{{ user.get_full_name }}</span>
       </a>
       {% include 'adminlte_full/includes/legacy_user_dropdown.html' %}
     </li>
@@ -15,4 +15,15 @@
       </a>
     </li>
   {% endif %}
+{% else %}
+  <li class="nav-item">
+    <a href="{% url config.ADMINLTE_LOGIN_ENDPOINT %}" class="btn btn-primary ml-2">
+      {% trans 'Log in' %}
+    </a>
+    {% if config.ADMINLTE_ALLOW_REGISTRATION %}
+      <a href="{% url config.ADMINLTE_REGISTRATION_ENDPOINT %}" class="btn btn-danger ml-2">
+        {% trans 'Registration' %}
+      </a>
+    {% endif %}
+  </li>
 {% endif %}

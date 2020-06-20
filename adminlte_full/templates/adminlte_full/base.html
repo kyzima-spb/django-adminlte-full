@@ -2,13 +2,31 @@
 {% load adminlte_full %}
 
 
-{% block body_attributes %} class="hold-transition {{ config.ADMINLTE_LAYOUT }}"{% endblock body_attributes %}
+
+{% block body_attributes %} class="
+  hold-transition
+  {{ config.ADMINLTE_LAYOUT|join:' ' }}
+  {{ config.ADMINLTE_ACCENT_COLOR|if_true:' accent-$value' }}
+  {{ config.ADMINLTE_BODY_SMALL_TEXT|if_true:' text-sm' }}
+"{% endblock body_attributes %}
 
 {% block main %}
   <div class="wrapper">
-    <nav class="main-header navbar navbar-expand-md navbar-white navbar-light">
+    <nav class="main-header navbar navbar-expand-md
+      {{ config.ADMINLTE_NAVBAR_COLOR|navbar_skin }}
+      {{ config.ADMINLTE_NAVBAR_NO_BORDER|if_true:' border-bottom-0' }}
+      {{ config.ADMINLTE_NAVBAR_SMALL_TEXT|if_true:' text-sm' }}
+    ">
+      {% if ThemeLayout.TOP_NAV <= config.ADMINLTE_LAYOUT %}<div class="container">{% endif %}
       {% block navbar_top %}
-        {% if config.ADMINLTE_SIDEBAR_ENABLED %}
+        {% if ThemeLayout.TOP_NAV <= config.ADMINLTE_LAYOUT %}
+          {% with class_attr='navbar-brand' %}
+{% adminlte.get_home_page as home_page %}
+            {% include 'adminlte_full/includes/brand_logo.html' %}
+          {% endwith %}
+        {% endif %}
+
+        {% if config.ADMINLTE_MAIN_SIDEBAR_ENABLED %}
           <div class="navbar-nav navbar-no-expand order-1">
             <a class="nav-item nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
           </div>
@@ -16,45 +34,76 @@
 
         <div class="collapse navbar-collapse order-3" id="navbarCollapse">
           <div class="order-2">
-            {% block search_form %}{% endblock search_form %}
+            {% block search_form %}
+              {% if config.ADMINLTE_SEARCH_ENABLED %}
+                {% include 'adminlte_full/markup/navbar_search_form.html' %}
+              {% endif %}
+            {% endblock search_form %}
           </div>
           <ul class="navbar-nav order-1">
-            {% block navbar_left %}{% endblock navbar_left %}
+            {% block navbar_left %}
+              {% adminlte.menu.navbar_menu as navbar_menu %}
+              {% if navbar_menu %}
+                {% include 'adminlte_full/markup/navbar_menu.html' with menu=navbar_menu %}
+              {% endif %}
+            {% endblock navbar_left %}
           </ul>
         </div>
 
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
           {% block navbar_right %}
             {% if config.ADMINLTE_MESSAGES_ENABLED %}
-              {% adminlte.render_messages %}
+              {% adminlte.render_messages_menu %}
             {% endif %}
             {% if config.ADMINLTE_NOTIFICATIONS_ENABLED %}
-              {% adminlte.render_notifications %}
+              {% adminlte.render_notifications_menu %}
             {% endif %}
             {% if config.ADMINLTE_TASKS_ENABLED %}
-              {% adminlte.render_tasks %}
+              {% adminlte.render_tasks_menu %}
+            {% endif %}
+            {% if adminlte.current_locale %}
+              {% adminlte.render_language_menu %}
             {% endif %}
           {% endblock navbar_right %}
-          {% adminlte.render_legacy_user_menu %}
+          {% if adminlte.user %}
+            {% adminlte.render_legacy_user_menu %}
+          {% endif %}
           <li class="nav-item d-sm-none">
             <a class="nav-link" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" href="#" role="button">
               <i class="fas fa-caret-down"></i>
             </a>
           </li>
-          
+          {% if config.ADMINLTE_SECOND_SIDEBAR_ENABLED %}
+            <li class="nav-item">
+              <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                <i class="fas fa-th-large"></i>
+              </a>
+            </li>
+          {% endif %}
         </ul>
       {% endblock navbar_top %}
+      {% if ThemeLayout.TOP_NAV <= config.ADMINLTE_LAYOUT %}</div>{% endif %}
     </nav>
-    {% if config.ADMINLTE_SIDEBAR_ENABLED %}
-      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    {% if config.ADMINLTE_MAIN_SIDEBAR_ENABLED %}
+      <aside class="main-sidebar elevation-4 {{ config.ADMINLTE_SIDEBAR_COLOR|sidebar_skin:config.ADMINLTE_SIDEBAR_LIGHT }}">
         {% with class_attr='brand-link' %}
+{% adminlte.get_home_page as home_page %}
           {% include 'adminlte_full/includes/brand_logo.html' %}
         {% endwith %}
         <div class="sidebar">
           {% block sidebar %}
-            {% adminlte.render_user %}
+            {% if adminlte.user %}
+              {% with user=adminlte.user %}
+                {% include 'adminlte_full/includes/user_sidebar_panel.html' %}
+              {% endwith %}
+            {% endif %}
             <nav class="mt-2">
-              {% block sidebar_nav %}{% endblock sidebar_nav %}
+              {% block sidebar_nav %}
+                {% adminlte.menu.sidebar_menu as sidebar_menu %}
+                {% if sidebar_menu %}
+                  {% include 'adminlte_full/markup/sidebar_menu.html' with menu=sidebar_menu %}
+                {% endif %}
+              {% endblock sidebar_nav %}
             </nav>
           {% endblock sidebar %}
         </div>
@@ -65,15 +114,18 @@
       {% block content_wrapper %}
         <section class="content-header">
           {% block content_header %}
-            <div class="container-fluid">
+            <div class="{% if ThemeLayout.TOP_NAV <= config.ADMINLTE_LAYOUT %}container{% else %}container-fluid{% endif %}">
               <div class="row mb-2">
                 <div class="col-sm-6">
-                  <h1>{% block page_title %}Blank Page{% endblock page_title %}</h1>
+                  <h1>{% block page_title %}{% endblock page_title %}</h1>
                 </div>
                 <div class="col-sm-6">
-                  {% block breadcrumb %}
-                    
-                  {% endblock breadcrumb %}
+                  <ol class="breadcrumb float-sm-right" itemscope itemtype="http://schema.org/BreadcrumbList">
+                    {% block breadcrumb %}
+                      {% adminlte.get_home_page as home_page %}
+                      {% breadcrumb home_page.title icon='fas fa-home' %}{{ home_page.url }}{% endbreadcrumb %}
+                    {% endblock breadcrumb %}
+                  </ol>
                 </div>
               </div>
             </div>
@@ -81,19 +133,25 @@
         </section>
         <section class="content">
           {% block content %}
-            <div class="container-fluid">
+            <div class="{% if ThemeLayout.TOP_NAV <= config.ADMINLTE_LAYOUT %}container{% else %}container-fluid{% endif %}">
               {% adminlte.render_flash_messages %}
               {% block page_content %}{% endblock page_content %}
             </div>
           {% endblock content %}
         </section>
       {% endblock content_wrapper %}
+
+      {% if config.ADMINLTE_BACK_TO_TOP_ENABLED %}
+        <a id="back-to-top" href="#" class="btn btn-primary back-to-top" role="button" aria-label="Scroll to top">
+          <i class="fas fa-chevron-up"></i>
+        </a>
+      {% endif %}
     </div>
 
-    <footer class="main-footer">
+    <footer class="main-footer{{ config.ADMINLTE_FOOTER_SMALL_TEXT|if_true:' text-sm' }}">
       {% block main_footer %}
         <div class="float-right d-none d-sm-block">
-          <b>Version</b> 3.0.4
+          <b>Version</b> 3.0.5
         </div>
         <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io" target="_blank">AdminLTE.io</a>.</strong>
         <strong>Ported <a href="http://github.com/kyzima-spb" target="_blank">Kirill Vercetti</a>.</strong>
@@ -101,8 +159,10 @@
       {% endblock main_footer %}
     </footer>
 
-    <aside class="control-sidebar control-sidebar-dark">
-      {% block control_sidebar %}{% endblock control_sidebar %}
-    </aside>
+    {% if config.ADMINLTE_SECOND_SIDEBAR_ENABLED %}
+      <aside class="control-sidebar control-sidebar-{% if config.ADMINLTE_SIDEBAR_LIGHT %}light{% else %}dark{% endif %}">
+        {% include 'includes/second_sidebar.html' %}
+      </aside>
+    {% endif %}
   </div>
 {% endblock main %}
