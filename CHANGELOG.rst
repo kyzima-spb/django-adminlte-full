@@ -3,6 +3,7 @@
 
 - Upgrading to Bootstrap 4 and AdminLTE 3.
 - Added pages for 400, 403, 404 and 500 errors.
+- Color skins for sidebar, navbar and logo.
 - Signals are renamed, moved to the `signals.py` module and no longer have a class binding:
 
   - `menu_loaded(menu, program_name, context)` - triggered when the application menu was created.
@@ -31,6 +32,8 @@
   - `humanize` - date output in human-readable format.
 
 - Full integration with Django authentication system.
+
+- Almost all classes, functions and templates from the previous release are removed.
 
 0.1.1
 =====
