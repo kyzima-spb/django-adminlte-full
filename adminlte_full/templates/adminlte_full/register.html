@@ -1,0 +1,59 @@
+{% extends "adminlte_full/skeleton_login.html" %}
+{% load i18n crispy_forms_tags adminlte_full %}
+
+
+{% block page_title %}{% trans 'Registration' %}{% endblock page_title %}
+
+{% block messages %}
+  <p class="login-box-msg">{% trans 'Register a new membership' %}</p>
+{% endblock messages %}
+
+{% block page_content %}
+  {% block form %}
+    <form action="{% url config.ADMINLTE_REGISTRATION_ENDPOINT %}" method="post">
+      {% block form_fields %}
+        {% crispy form %}
+      {% endblock form_fields %}
+      <div class="row">
+        <div class="col-7">
+          {% if config.ADMINLTE_TERMS_ENDPOINT %}
+            <div class="icheck-primary">
+              <input class="{{ form.agree_terms.errors|if_true:' is-invalid' }}" type="checkbox" name="agree_terms" id="agree_terms">
+              <label for="agree_terms">
+                {% url config.ADMINLTE_TERMS_ENDPOINT as term_url %}
+                {% blocktrans with term_url=term_url %}I agree to the <a href="{{ term_url }}">terms</a>{% endblocktrans %}
+              </label>
+              <div class="invalid-feedback">
+                <p>{% trans 'You must agree to the terms.' %}</p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-5">
+          <button type="submit" class="btn btn-primary btn-block">{% trans 'Registration' %}</button>
+        </div>
+      </div>
+    </form>
+  {% endblock form %}
+
+  {% if config.ADMINLTE_ALLOW_SOCIAL_AUTH %}
+    <div class="social-auth-links text-center mb-3">
+      <p>{% trans '- OR -' %}</p>
+      {% include 'includes/social_auth_links.html' %}
+    </div>
+  {% endif %}
+{% endblock page_content %}
+
+{% block custom_links %}
+  <p class="mt-1 mb-0">
+    <a href="{% url config.ADMINLTE_LOGIN_ENDPOINT %}">
+      {% trans 'I already have a membership' %}
+    </a>
+  </p>
+{% endblock custom_links %}
+
+{% block styles_inline %}
+  .login-box {
+    width: 400px;
+  }
+{% endblock styles_inline %}

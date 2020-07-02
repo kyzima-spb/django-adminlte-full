@@ -12,7 +12,7 @@
   {% if item.type == item.TYPE_HEADER %}
     <li class="nav-header">{{ item.title }}</li>
   {% elif item.type == item.TYPE_LINK %}
-    <li class="nav-item{% if item.has_children %} has-treeview{% endif %}">
+    <li class="nav-item{% if item.has_children %} has-treeview {% if item.is_active %} menu-open{% endif %}{% endif %}">
       <a class="nav-link{% if item.is_active %} active{% endif %}" href="{{ item.url }}" title="{{ item.help }}">
         <i class="nav-icon {% if item.icon %}{{ item.icon }}{% else %}far fa-circle{% endif %}"></i>
         <p>

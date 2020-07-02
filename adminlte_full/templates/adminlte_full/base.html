@@ -52,19 +52,21 @@
 
         <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
           {% block navbar_right %}
-            {% if config.ADMINLTE_MESSAGES_ENABLED %}
-              {% adminlte.render_messages_menu %}
-            {% endif %}
-            {% if config.ADMINLTE_NOTIFICATIONS_ENABLED %}
-              {% adminlte.render_notifications_menu %}
-            {% endif %}
-            {% if config.ADMINLTE_TASKS_ENABLED %}
-              {% adminlte.render_tasks_menu %}
-            {% endif %}
-            {% if adminlte.current_locale %}
-              {% adminlte.render_language_menu %}
+            {% if adminlte_user and adminlte_user.is_authenticated %}
+              {% if config.ADMINLTE_MESSAGES_ENABLED %}
+                {% adminlte.render_messages_menu %}
+              {% endif %}
+              {% if config.ADMINLTE_NOTIFICATIONS_ENABLED %}
+                {% adminlte.render_notifications_menu %}
+              {% endif %}
+              {% if config.ADMINLTE_TASKS_ENABLED %}
+                {% adminlte.render_tasks_menu %}
+              {% endif %}
             {% endif %}
           {% endblock navbar_right %}
+          {% if config.ADMINLTE_LANGUAGE_SWITCHER_ENABLED %}
+            {% adminlte.render_language_menu %}
+          {% endif %}
           {% if adminlte_user %}
             {% adminlte.render_legacy_user_menu %}
           {% endif %}
@@ -121,10 +123,10 @@
                 </div>
                 <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right" itemscope itemtype="http://schema.org/BreadcrumbList">
-                    {% block breadcrumb %}
+                    {% block breadcrumbs %}
                       {% adminlte.get_home_page as home_page %}
                       {% breadcrumb home_page.title icon='fas fa-home' %}{{ home_page.url }}{% endbreadcrumb %}
-                    {% endblock breadcrumb %}
+                    {% endblock breadcrumbs %}
                   </ol>
                 </div>
               </div>
