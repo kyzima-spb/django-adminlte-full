@@ -1,16 +1,6 @@
-from django.conf import settings
-from adminlte_base import ThemeColor, ThemeLayout, DEFAULT_SETTINGS
+from adminlte_base import ThemeColor, ThemeLayout
 
-
-class ConfigWrapper(object):
-    def get(self, name, default=''):
-        """Returns the value of any configuration option, or the default value for the AdminLTE options."""
-        return getattr(settings, name, DEFAULT_SETTINGS.get(name, default))
-
-    __getitem__ = get
-
-
-config = ConfigWrapper()
+from .adminlte import config
 
 
 def adminlte(request):
