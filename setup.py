@@ -31,7 +31,7 @@ setup(
     install_requires=[
         'adminlte-base',
         'django>=3.0',
-        'django-crispy-form>=1.9',
+        'django-crispy-forms>=1.9',
     ],
     classifiers=[
         'Programming Language :: Python :: 3 :: Only',
