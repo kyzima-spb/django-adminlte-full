@@ -1,0 +1,16 @@
+{% extends "adminlte_full/base.html" %}
+{% load adminlte_full i18n %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% trans 'Log in' as login %}
+  {% breadcrumb login %}{% url config.ADMINLTE_LOGIN_ENDPOINT %}{% endbreadcrumb %}
+  {% breadcrumb 'Twitter' icon='fab fa-twitter' %}https://twitter.com{% endbreadcrumb %}
+  {% breadcrumb %}
+    <img src="http://latex.codecogs.com/gif.latex?1+sin(x)" border="0">
+  {% endbreadcrumb %}
+  {% breadcrumb '&#127932;' is_active=True %}{% endbreadcrumb %}
+{% endblock breadcrumbs %}
+
+
+{% block page_content %}{% endblock %}
