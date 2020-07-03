@@ -1,5 +1,8 @@
+CHANGELOG
+=========
+
 0.2.0
-=====
+-----
 
 - Upgrading to Bootstrap 4 and AdminLTE 3.
 - Full integration with Django authentication system.
@@ -32,6 +35,6 @@
 - Almost all classes, functions and templates from the previous release are removed. All signals are also deleted.
 
 0.1.1
-=====
+-----
 
 The release was added only to maintain backward compatibility. All new code will no longer work with the old version.
