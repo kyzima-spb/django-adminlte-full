@@ -51,4 +51,4 @@ Documentation
 
 .. _Django: https://www.djangoproject.com/
 .. _AdminLTE: https://adminlte.io/
-.. _Continue reading the documentation.: https://adminlte-full.readthedocs.io/en/latest/flask.html
+.. _Continue reading the documentation.: https://adminlte-full.readthedocs.io/en/latest/django.html
