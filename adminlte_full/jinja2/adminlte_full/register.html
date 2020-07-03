@@ -1,0 +1,59 @@
+{% extends "adminlte_full/skeleton_login.html" %}
+{% import "adminlte_full/macros/bootstrap4.html" as bootstrap %}
+
+{% block page_title %}{{ adminlte.gettext('Registration') }}{% endblock %}
+
+{% block messages %}
+  <p class="login-box-msg">{{ adminlte.gettext('Register a new membership') }}</p>
+{% endblock messages %}
+
+{% block page_content %}
+  {% block form %}
+    <form action="{{ adminlte.create_url(config.ADMINLTE_REGISTRATION_ENDPOINT) }}" method="post">
+      {% block form_fields %}
+        {{ bootstrap.form_fields(form, form_group_class='input-group mb-3',
+                                 show_label=false, placeholder=true, exclude=['agree_terms']) }}
+      {% endblock form_fields %}
+      <div class="row">
+        <div class="col-7">
+          {% if config.ADMINLTE_TERMS_ENDPOINT %}
+            <div class="icheck-primary">
+              <input class="{{ form.agree_terms.errors|if_true(' is-invalid') }}" type="checkbox" name="agree_terms" id="agree_terms">
+              <label for="agree_terms">
+                {% set term_url = adminlte.create_url(config.ADMINLTE_TERMS_ENDPOINT) %}
+                {{ adminlte.gettext('I agree to the <a href="%(term_url)s">terms</a>', term_url=term_url) }}
+              </label>
+              <div class="invalid-feedback">
+                <p>{{ adminlte.gettext('You must agree to the terms.') }}</p>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-5">
+          <button type="submit" class="btn btn-primary btn-block">{{ adminlte.gettext('Registration') }}</button>
+        </div>
+      </div>
+    </form>
+  {% endblock form %}
+
+  {% if config.ADMINLTE_ALLOW_SOCIAL_AUTH %}
+    <div class="social-auth-links text-center mb-3">
+      <p>{{ adminlte.gettext('- OR -') }}</p>
+      {% include 'includes/social_auth_links.html' %}
+    </div>
+  {% endif %}
+{% endblock page_content %}
+
+{% block custom_links %}
+  <p class="mt-1 mb-0">
+    <a href="{{ adminlte.create_url(config.ADMINLTE_LOGIN_ENDPOINT) }}">
+      {{ adminlte.gettext('I already have a membership') }}
+    </a>
+  </p>
+{% endblock custom_links %}
+
+{% block styles_inline %}
+  .login-box {
+    width: 400px;
+  }
+{% endblock styles_inline %}

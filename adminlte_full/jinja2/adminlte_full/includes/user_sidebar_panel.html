@@ -1,0 +1,12 @@
+{% if not config.ADMINLTE_LEGACY_USER_MENU and user.is_authenticated %}
+  <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="image">
+      <img src="{{ user.email | gravatar }}" class="img-circle elevation-2" alt="User Image">
+    </div>
+    <div class="info">
+      <a href="{{ adminlte.create_url(config.ADMINLTE_PROFILE_ENDPOINT) }}" class="d-block">
+        {{ user.get_full_name() }}
+      </a>
+    </div>
+  </div>
+{% endif %}

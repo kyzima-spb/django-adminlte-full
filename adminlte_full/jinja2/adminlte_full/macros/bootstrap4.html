@@ -1,0 +1,111 @@
+{% macro form_fields(form, exclude=none, form_group_class='form-group', show_label=true, placeholder=false) %}
+  {% if exclude is not iterable %}
+    {% set exclude = [] %}
+  {% endif %}
+  {% for field in form %}
+    {% if field.name not in exclude %}
+      {% if field.widget.input_type != 'hidden' %}
+        {% if placeholder %}
+          {% set placeholder = field.label.text %}
+        {% endif %}
+        {{ form_field(field, form_group_class=form_group_class, show_label=show_label, placeholder=placeholder) }}
+      {% else %}
+        {{ field }}
+      {% endif %}
+    {% endif %}
+  {% endfor %}
+{% endmacro %}
+
+{% macro form_field(field, form_group_class='form-group', placeholder='', show_label=true,
+               addon_before=none, addon_after=none) %}
+  <div class="{{ form_group_class }}">
+    {% if show_label %}
+      {{ field.label }}
+    {% endif %}
+
+    {%- if field.errors %}
+      {% set valid_class='is-invalid' %}
+    {%- else %}
+      {% set valid_class='' %}
+    {% endif -%}
+
+    {% if field.render_kw and field.render_kw.get('data-icon') %}
+      {% set addon_after %}<span class="{{ field.render_kw.get('data-icon') }}"></span>{% endset %}
+    {% endif %}
+
+    {% if addon_before %}
+      <div class="input-group-prepend">
+        <div class="input-group-text">{{ addon_before|safe }}</div>
+      </div>
+    {% endif %}
+
+    {{ field(class="form-control " + valid_class, placeholder=placeholder) }}
+
+    {% if field.description %}
+      {% if field.description is iterable and field.description is not string %}
+        <ul class="form-text text-muted text-sm">
+          {% for i in field.description %}
+            <li>{{ i }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <small class="form-text text-muted">{{ field.description }}</small>
+      {% endif %}
+    {% endif %}
+
+    {% if addon_after %}
+      <div class="input-group-append">
+        <div class="input-group-text">{{ addon_after|safe }}</div>
+      </div>
+    {% endif %}
+
+    {%- if field.errors %}
+      <div class="invalid-feedback">
+        {%- for error in field.errors %}
+          <p>{{ error }}</p>
+        {% endfor -%}
+      </div>
+    {% endif -%}
+  </div>
+{% endmacro %}
+
+
+{% macro breadcrumb(title='', url='', icon='', is_active=false, position=none) %}
+  {% set label|trim %}
+    {% if icon %}<i class="{{ icon }}"></i>{% endif %}
+    {% if title %}<span itemprop="name">{{ title|safe }}</span>{% endif %}
+  {% endset %}
+
+  {% if label and not url %}
+    {% set body = label %}
+  {% elif not label and not url %}
+    {% set body = caller() %}
+  {% else %}
+    {% set body %}<a itemprop="item" href="{{ url }}">{{ label }}</a>{% endset %}
+  {% endif %}
+
+  <li class="breadcrumb-item{{ is_active|if_true(' active') }}"
+      {% if is_active %} aria-current="page"{% endif %}
+      itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"
+  >
+    {{- body -}}
+    {%- if position -%}
+      <meta itemprop="position" content="{{ position }}">
+    {%- endif -%}
+  </li>
+{% endmacro %}
+
+
+{% macro pagination(pages, pagination_class='') %}
+  <ul class="pagination{% if pagination_class %} {{ pagination_class }}{% endif %}">
+    {% for item in pages %}
+      <li class="page-item{% if item.is_active %} active{% endif %}{% if item.disabled %} disabled{% endif %}">
+        <a class="page-link" href="{{ item.url }}">
+          <span class="d-md-none">{{ item.responsive|safe }}</span>
+          <span class="d-none d-md-block">{{ item.text|safe }}</span>
+          {% if item.is_active %} <span class="sr-only">(current)</span>{% endif %}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endmacro %}

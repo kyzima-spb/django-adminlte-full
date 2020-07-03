@@ -1,0 +1,12 @@
+<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+  <a class="dropdown-item" href="{{ adminlte.create_url(config.ADMINLTE_PROFILE_ENDPOINT) }}">
+    <i class="fas fa-user mr-2"></i> {{ adminlte.gettext('Profile') }}
+  </a>
+  <a class="dropdown-item" href="{{ adminlte.create_url(config.ADMINLTE_CHANGE_PASSWORD_ENDPOINT) }}">
+    <i class="fas fa-lock mr-2"></i> {{ adminlte.gettext('Change my password') }}
+  </a>
+  <div class="dropdown-divider"></div>
+  <a class="dropdown-item" href="{{ adminlte.create_url(config.ADMINLTE_LOGOUT_ENDPOINT) }}">
+    <i class="fas fa-sign-out-alt mr-2"></i> {{ adminlte.gettext('Log out') }}
+  </a>
+</div>

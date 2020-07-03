@@ -1,0 +1,40 @@
+{% block document %}
+<!DOCTYPE html>
+<html{% block html_attributes %} lang="en"{% endblock %}>
+<head>
+{% block head %}
+  {% block meta %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="{% block meta_description %}{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+  {% endblock meta %}
+  <title>{% block title %}{% block page_title %}{% endblock page_title %} | {% block site_title %}{{ config.ADMINLTE_SITE_TITLE }}{% endblock site_title %}{% endblock title %}</title>
+  {% block styles %}
+    <link type="image/x-icon" rel="shortcut icon" href="{{ adminlte.static('favicon.ico') }}">
+    <link rel="stylesheet" href="{{ adminlte.static('plugins/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ adminlte.static('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ adminlte.static('dist/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.3.0/css/flag-icon.min.css">
+  {% endblock styles %}
+  <style>{% block styles_inline %}{% endblock styles_inline %}</style>
+  {% block javascript_head %}{% endblock javascript_head %}
+{% endblock head %}
+</head>
+
+<body{% block body_attributes %}{% endblock %}>
+{% block body %}
+  {% block main %}{% endblock %}
+  {% block javascript %}
+    <script src="{{ adminlte.static('plugins/jquery/jquery.min.js') }}"></script>
+    <script src="{{ adminlte.static('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ adminlte.static('dist/js/adminlte.min.js') }}"></script>
+  {% endblock %}
+  <script>{% block javascript_inline %}{% endblock %}</script>
+{% endblock %}
+</body>
+</html>
+{% endblock %}

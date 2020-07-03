@@ -1,0 +1,56 @@
+{% extends 'adminlte_full/skeleton.html' %}
+
+{% block page_title %}{{ adminlte.gettext('Lockscreen') }}{% endblock %}
+
+{% block body_attributes %} class="hold-transition lockscreen"{% endblock %}
+
+{% block main %}
+  <div class="lockscreen-wrapper">
+    <div class="lockscreen-logo">
+      <a href="/">{{ config.ADMINLTE_BRAND_HTML|safe }}</a>
+    </div>
+
+    {% if adminlte_user.is_anonymous %}
+      <div class="lockscreen-item" style="background: none">
+        <a href="{{ adminlte.create_url(config.ADMINLTE_LOGIN_ENDPOINT) }}" class="btn btn-block btn-primary">
+          {{ adminlte.gettext('Log in') }}
+        </a>
+        {% if config.ADMINLTE_ALLOW_REGISTRATION %}
+          <a href="{{ adminlte.create_url(config.ADMINLTE_REGISTRATION_ENDPOINT) }}" class="btn btn-block btn-danger">
+            {{ adminlte.gettext('Registration') }}
+          </a>
+        {% endif %}
+      </div>
+    {% else %}
+      <div class="lockscreen-name">{{ adminlte_user.get_full_name() }}</div>
+
+      <div class="lockscreen-item">
+        <div class="lockscreen-image">
+          <img src="{{ adminlte_user.email|gravatar }}" alt="User Image">
+        </div>
+
+        <form class="lockscreen-credentials" method="post">
+          <div class="input-group">
+            <input class="form-control" type="password" name="password" placeholder="{{ adminlte.gettext('Password') }}">
+
+            <div class="input-group-append">
+              <button type="button" class="btn"><i class="fas fa-arrow-right text-muted"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="help-block text-center">
+        {{ adminlte.gettext('Enter your password to retrieve your session') }}
+      </div>
+      <div class="text-center">
+        <a href="{{ adminlte.create_url(config.ADMINLTE_LOGIN_ENDPOINT) }}">{{ adminlte.gettext('Or sign in as a different user') }}</a>
+      </div>
+    {% endif %}
+
+    <div class="lockscreen-footer text-center">
+      Copyright &copy; 2014-2020 <b><a href="http://adminlte.io" class="text-black">AdminLTE.io</a></b><br>
+      All rights reserved
+    </div>
+  </div>
+{% endblock %}

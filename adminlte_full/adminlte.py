@@ -4,6 +4,7 @@ from adminlte_base import (
 )
 from django.conf import settings
 from django.urls import reverse_lazy
+from django.templatetags.static import static
 
 
 class ConfigWrapper(object):
@@ -26,6 +27,9 @@ class Manager(AbstractManager):
             yield FlashedMessage(
                 message.level_tag, message.message, message.level_tag, message_class=message.extra_tags
             )
+
+    def static(self, filename):
+        return static(filename)
 
 
 config = ConfigWrapper()

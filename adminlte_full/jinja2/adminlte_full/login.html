@@ -1,0 +1,63 @@
+{% extends "adminlte_full/skeleton_login.html" %}
+{% import "adminlte_full/macros/bootstrap4.html" as bootstrap %}
+
+{% block page_title %}{{ adminlte.gettext('Login') }}{% endblock %}
+
+{% block messages %}
+  {% if adminlte_user.is_authenticated %}
+    <p class="login-box-msg">
+      You are authenticated as {{ adminlte_user.get_full_name() }}, but are not authorized to access this page.
+      Would you like to login to a different account?
+    </p>
+  {% else %}
+    <p class="login-box-msg">{{ adminlte.gettext('Sign in to start your session') }}</p>
+  {% endif %}
+{% endblock messages %}
+
+{% block page_content %}
+  {% block form %}
+    <form action="{{ adminlte.create_url(config.ADMINLTE_LOGIN_ENDPOINT) }}" method="post">
+      {% block form_fields %}
+        {{ bootstrap.form_fields(form, form_group_class='input-group mb-3',
+                                 show_label=false, placeholder=true, exclude=['remember_me']) }}
+      {% endblock form_fields %}
+      <div class="row">
+        <div class="col-8">
+          {% if config.ADMINLTE_REMEMBER_ME %}
+            <div class="icheck-primary">
+              <input type="checkbox" name="remember_me" id="remember">
+              <label for="remember">{{ adminlte.gettext('Remember Me') }}</label>
+            </div>
+          {% endif %}
+        </div>
+        <div class="col-4">
+          <button type="submit" class="btn btn-primary btn-block">{{ adminlte.gettext('Log in') }}</button>
+        </div>
+      </div>
+    </form>
+  {% endblock form %}
+
+  {% if config.ADMINLTE_ALLOW_SOCIAL_AUTH %}
+    <div class="social-auth-links text-center mb-3">
+      <p>{{ adminlte.gettext('- OR -') }}</p>
+      {% include 'includes/social_auth_links.html' %}
+    </div>
+  {% endif %}
+{% endblock page_content %}
+
+{% block custom_links %}
+  {% if config.ADMINLTE_ALLOW_PASSWORD_RESET %}
+    <p class="mt-1 mb-1">
+      <a href="{{ adminlte.create_url(config.ADMINLTE_PASSWORD_RESET_ENDPOINT) }}">
+        {{ adminlte.gettext('Forgotten your password or username?') }}
+      </a>
+    </p>
+  {% endif %}
+  {% if config.ADMINLTE_ALLOW_REGISTRATION %}
+    <p class="mt-1 mb-0">
+      <a href="{{ adminlte.create_url(config.ADMINLTE_REGISTRATION_ENDPOINT) }}">
+        {{ adminlte.gettext('Register a new membership') }}
+      </a>
+    </p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "adminlte_full/skeleton.html" %}
+{% import "adminlte_full/macros/markup.html" as adminlte_markup %}
+
+{% block body_attributes %} class="hold-transition login-page"{% endblock %}
+
+{% block body %}
+<div class="login-box">
+  <div class="login-logo">
+    {% block logo %}
+      {% if logo_url %}
+        <a href="{{ logo_url }}">{{ config.ADMINLTE_BRAND_HTML|safe }}</a>
+      {% else %}
+        <div>{{ config.ADMINLTE_BRAND_HTML|safe }}</div>
+      {% endif %}
+    {% endblock logo %}
+  </div>
+
+  <div class="card">
+    <div class="card-body login-card-body">
+      {{ adminlte_markup.flash_messages(adminlte.get_flash_messages()) }}
+      {% block messages %}{% endblock messages %}
+      {% block page_content %}{% endblock page_content %}
+      {% block custom_links %}{% endblock custom_links %}
+    </div>
+  </div>
+</div>
+{% endblock %}

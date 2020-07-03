@@ -1,0 +1,10 @@
+<a href="{{ home_page.url }}" class="{{ class_attr }}
+  {{ config.ADMINLTE_BRAND_COLOR|if_true|navbar_skin }}
+  {{ config.ADMINLTE_BRAND_SMALL_TEXT|if_true(' text-sm') }}
+">
+  <img src="{{ adminlte.static('dist/img/AdminLTELogo.png') }}"
+       alt="{{ config.ADMINLTE_BRAND_IMAGE_ALT }}"
+       class="brand-image img-circle elevation-3"
+       style="opacity: .8">
+  <span class="brand-text font-weight-light">{{ config.ADMINLTE_BRAND_TEXT }}</span>
+</a>
