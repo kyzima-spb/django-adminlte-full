@@ -30,6 +30,9 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
     def helper(self):
         helper = FormHelper()
         helper.form_tag = False
+        helper.layout = helper.layout = Layout(*[
+            Field(name, placeholder=field.label) for name, field in self.fields.items()
+        ])
         return helper
 
 
