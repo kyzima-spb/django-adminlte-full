@@ -1,0 +1,171 @@
+# Russian translations for AdminLTE-Full.
+# Copyright (C) 2020 ORGANIZATION
+# This file is distributed under the same license as the AdminLTE-Full
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: AdminLTE-Full VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2020-06-28 00:16+0300\n"
+"PO-Revision-Date: 2020-06-08 19:19+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: adminlte_base/templates/adminlte_full/change_password.html:5
+#: adminlte_base/templates/adminlte_full/change_password.html:9
+#: adminlte_base/templates/adminlte_full/change_password.html:28
+#: adminlte_base/templates/adminlte_full/includes/legacy_user_dropdown.html:6
+#: adminlte_base/templates/adminlte_full/recover_password.html:25
+msgid "Change my password"
+msgstr "Изменить пароль"
+
+#: adminlte_base/templates/adminlte_full/change_password.html:17
+#, python-format
+msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgstr "Введите новый пароль для пользователя <strong>%(username)s</strong>"
+
+#: adminlte_base/templates/adminlte_full/change_password.html:19
+msgid "Enter a new password"
+msgstr "Введите новый пароль"
+
+#: adminlte_base/templates/adminlte_full/forgot_password.html:4
+msgid "Password Reset"
+msgstr "Сброс пароля"
+
+#: adminlte_base/templates/adminlte_full/forgot_password.html:8
+msgid "You forgot your password? Here you can easily retrieve a new password."
+msgstr "Вы забыли свой пароль? Здесь вы сможете его восстановить."
+
+#: adminlte_base/templates/adminlte_full/forgot_password.html:20
+#: adminlte_base/templates/adminlte_full/recover_password.html:32
+msgid "Reset my password"
+msgstr "Сбросить пароль"
+
+#: adminlte_base/templates/adminlte_full/forgot_password.html:29
+#: adminlte_base/templates/adminlte_full/lockscreen.html:16
+#: adminlte_base/templates/adminlte_full/login.html:33
+#: adminlte_base/templates/adminlte_full/macros/markup.html:36
+#: adminlte_base/templates/adminlte_full/recover_password.html:39
+msgid "Log in"
+msgstr "Войти"
+
+#: adminlte_base/templates/adminlte_full/forgot_password.html:34
+#: adminlte_base/templates/adminlte_full/login.html:58
+#: adminlte_base/templates/adminlte_full/register.html:7
+msgid "Register a new membership"
+msgstr "Регистрация нового пользователя"
+
+#: adminlte_base/templates/adminlte_full/lockscreen.html:3
+msgid "Lockscreen"
+msgstr "Экран блокировки"
+
+#: adminlte_base/templates/adminlte_full/lockscreen.html:20
+#: adminlte_base/templates/adminlte_full/macros/markup.html:40
+#: adminlte_base/templates/adminlte_full/register.html:4
+#: adminlte_base/templates/adminlte_full/register.html:33
+msgid "Registration"
+msgstr "Регистрация"
+
+#: adminlte_base/templates/adminlte_full/lockscreen.html:34
+msgid "Password"
+msgstr "Пароль"
+
+#: adminlte_base/templates/adminlte_full/lockscreen.html:44
+msgid "Enter your password to retrieve your session"
+msgstr "Введите свой пароль для продолжения"
+
+#: adminlte_base/templates/adminlte_full/lockscreen.html:47
+msgid "Or sign in as a different user"
+msgstr "Или войдите как другой пользователь"
+
+#: adminlte_base/templates/adminlte_full/login.html:4
+msgid "Login"
+msgstr "Вход"
+
+#: adminlte_base/templates/adminlte_full/login.html:13
+msgid "Sign in to start your session"
+msgstr "Войдите, чтобы начать сеанс"
+
+#: adminlte_base/templates/adminlte_full/login.html:28
+msgid "Remember Me"
+msgstr "Запомни меня"
+
+#: adminlte_base/templates/adminlte_full/login.html:41
+#: adminlte_base/templates/adminlte_full/register.html:41
+msgid "- OR -"
+msgstr "- ИЛИ -"
+
+#: adminlte_base/templates/adminlte_full/login.html:51
+msgid "Forgotten your password or username?"
+msgstr "Забыли свой пароль или имя пользователя?"
+
+#: adminlte_base/templates/adminlte_full/recover_password.html:4
+msgid "Recover Password"
+msgstr "Восстановление пароля"
+
+#: adminlte_base/templates/adminlte_full/recover_password.html:9
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+"Пожалуйста, введите новый пароль дважды, чтобы мы могли убедиться, что вы"
+" ввели его верно."
+
+#: adminlte_base/templates/adminlte_full/recover_password.html:11
+msgid ""
+"The password reset link was invalid, possibly because it has already been"
+" used. Please request a new password reset."
+msgstr ""
+"Ссылка для сброса пароля недействительная, возможно, потому что она уже "
+"использовалась. Пожалуйста, запросите новый пароль повторно."
+
+#: adminlte_base/templates/adminlte_full/register.html:24
+#, python-format
+msgid "I agree to the <a href=\"%(term_url)s\">terms</a>"
+msgstr "Я согласен с <a href=\"%(term_url)s\">условиями</a>"
+
+#: adminlte_base/templates/adminlte_full/register.html:27
+msgid "You must agree to the terms."
+msgstr "Вы должны согласиться с условиями."
+
+#: adminlte_base/templates/adminlte_full/register.html:50
+msgid "I already have a membership"
+msgstr "У меня уже есть аккаунт"
+
+#: adminlte_base/templates/adminlte_full/search_results.html:4
+msgid "Search Results"
+msgstr "Результаты поиска"
+
+#: adminlte_base/templates/adminlte_full/includes/legacy_user_dropdown.html:3
+msgid "Profile"
+msgstr "Профиль"
+
+#: adminlte_base/templates/adminlte_full/includes/legacy_user_dropdown.html:10
+msgid "Log out"
+msgstr "Выйти"
+
+#: adminlte_base/templates/adminlte_full/macros/markup.html:73
+msgid "See All Messages"
+msgstr "Просмотреть все сообщения"
+
+#: adminlte_base/templates/adminlte_full/macros/markup.html:95
+msgid "See All Notifications"
+msgstr "Просмотреть все уведомления"
+
+#: adminlte_base/templates/adminlte_full/macros/markup.html:122
+msgid "See all tasks"
+msgstr "Просмотреть все задачи"
+
+#: adminlte_base/templates/adminlte_full/macros/markup.html:149
+msgid "Search"
+msgstr "Поиск"
+
